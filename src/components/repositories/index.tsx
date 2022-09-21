@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import Loading from '../loading';
+import '../../styles/repos.scss';
 
 interface issue {
     name: string,
@@ -22,9 +23,9 @@ const Repos = () => {
                 setError(null);
 
                 setLoading(true);
-                console.log(loading)
 
                 setRepos(response.data.items.map((val: issue) => {
+                    console.log(val)
                     const {name, html_url, description, updated_at} = val;
                     return {
                         name: name,
@@ -35,7 +36,6 @@ const Repos = () => {
                 }))
 
                 setLoading(false);
-                console.log(loading)
             }).catch((error) => {
                 console.log(error)
                 setLoading(false);
@@ -52,21 +52,26 @@ const Repos = () => {
 
     return (
         <div>
-            <button onClick={fetchRepos}>get repobutton!</button>
             {
                 repos &&
-                Object.values(repos).map((val : issue, idx: number) => {
-                    return (
-                        <ul>
-                            <li key={idx}>
-                                <p key={val.name}>name {val.name}</p>
-                                <p key={val.html_url}>html_url {val.html_url}</p>
-                                <p key={val.description}>description {val.description}</p>
-                                <p key={val.updated_at}>updated_at {val.updated_at}</p>
-                            </li>
-                        </ul>
-                    )
-                })
+                <ul className="repo">
+                    {
+                        Object.values(repos).map((val : issue, idx: number) => {
+                            return (
+                                <li className="repo__item" onClick={e => window.open(val.html_url)}>
+                                    <p>{val.name}</p>
+                                    <p>{val.description}</p>
+                                    <p>updated_at {val.updated_at}</p>
+                                    <div>
+                                        <button>해당 레포 추가</button>
+                                        <button>레포 보러가기</button>
+                                        <button>이슈 개수</button>
+                                    </div>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
             }
         </div>
     );
