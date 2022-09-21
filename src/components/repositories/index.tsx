@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
+import Loading from '../loading';
 
 interface issue {
     name: string,
@@ -45,7 +46,7 @@ const Repos = () => {
         fetchRepos();
     }, []);
 
-    if (loading) return <div>로딩중..</div>;
+    if (loading) return <Loading />;
     if (error) return <div>에러가 발생했습니다</div>;
     if (!repos) return null;
 
