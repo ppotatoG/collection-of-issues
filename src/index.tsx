@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './styles/reset.css';
 import Repos from './components/repositories';
 import SearchForm from './components/searchForm';
+import Issues from './components/Issues';
 import reportWebVitals from './reportWebVitals';
 
 import {ApolloProvider} from "@apollo/client";
@@ -15,7 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
     <ApolloProvider client={apolloClient}>
         <React.StrictMode>
-            <SearchForm />
+            <Issues />
         </React.StrictMode>
     </ApolloProvider>
 );
