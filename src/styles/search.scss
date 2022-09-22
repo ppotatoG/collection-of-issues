@@ -1,0 +1,99 @@
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px;
+    margin:0 auto;
+    min-height: 100vh;
+    form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        max-width: 1000px;
+        margin:0 auto 30px;
+        position: sticky;
+        top: 20px;
+        left: 0;
+        z-index: 1;
+        backdrop-filter: blur(10px);
+        box-sizing: border-box;
+        border: {
+            style: solid;
+            width: 1px;
+            color: #ddd;
+            radius: 30px;
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            box-shadow: 0 0 4px 2px #ddd;
+        }
+
+        label {
+            padding: 20px 40px;
+            flex: 1 1 100%;
+        }
+
+        button {
+            flex: 0 0 80px;
+            height: 100%;
+        }
+    }
+    .repo {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+        &__item {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 2vw;
+            box-shadow: 0 0 4px 2px #eee;
+            border-radius: 10px;
+            text-align: left;
+            transition: transform .2s;
+
+            &:hover {
+                box-shadow: 0 0 4px 2px #ddd;
+                transform: translateY(-10px);
+            }
+
+            .inner {
+                display: flex;
+                gap: 10px;
+
+                &__text {
+                    h3 {
+                        font-size: 20px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    p {
+                        margin-top: 10px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: normal;
+                        word-wrap: break-word;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        -webkit-box-orient: vertical;
+                    }
+                }
+
+                &__status {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: flex-end;
+                }
+            }
+        }
+    }
+}

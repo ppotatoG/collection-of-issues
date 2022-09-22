@@ -1,26 +1,22 @@
 import React, {useState} from "react";
 import axios from 'axios';
-import Loading from '../loading';
-import '../../styles/repos.scss';
+import Loading from './loading';
 
-interface Repositories {
-    name: string,
-    html_url: string,
-    description: string,
-    updated_at: string
-};
+import '../styles/search.scss';
+import { FaSearch, FaLink, FaPlus } from "react-icons/fa";
+
+import { Repositories } from '../types';
 
 const SearchForm = () => {
     const [searchText, setSearchText] = useState<string | ''>('');
     const [repos, setRepos] = useState<Repositories | null>(null);
-    const [error, setError] = useState<object | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
     const SearchRepos = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchRepos()
-        console.log(searchText);
-    }
+        fetchRepos();
+        window.scrollTo(0, 0);
+    };
 
     const fetchRepos = async () => {
         console.log('fetchRepos')
@@ -29,40 +25,38 @@ const SearchForm = () => {
             .then((response) => {
                 // TODO : then 정리
                 setRepos(null);
-                setError(null);
 
                 setRepos(response.data.items.map((val: Repositories) => {
                     console.log(val)
-                    const {name, html_url, description, updated_at} = val;
+                    const {name, html_url, description, updated_at, open_issues} = val;
                     return {
                         name: name,
                         html_url: html_url,
                         description : description,
-                        updated_at : updated_at
+                        updated_at : updated_at,
+                        open_issues : open_issues
                     };
                 }))
-
-                setLoading(false);
             }).catch((error) => {
-                console.log(error)
-                setLoading(false);
+                alert(error);
             });
+
+        setLoading(false);
     };
 
-    if (error) return <div>에러가 발생했습니다</div>;
-
     return (
-        <>
-            <form action="submit" onSubmit={SearchRepos}>
-                <label htmlFor="">
+        <div className="search">
+            <form action="submit" onSubmit={SearchRepos} >
+                <label htmlFor="searchText">
                     <input
+                        id="searchText"
                         type="text"
-                        placeholder="placeholder"
+                        placeholder="레포지토리 이름으로 검색"
                         value={searchText}
                         onChange={e => setSearchText(e.target.value)}
                     />
-                    <button>돋보기 아이콘</button>
                 </label>
+                <button><FaSearch /></button>
             </form>
 
             { loading && <Loading /> }
@@ -73,14 +67,16 @@ const SearchForm = () => {
                     {
                         Object.values(repos).map((val : Repositories, idx: number) => {
                             return (
-                                <li className="repo__item" onClick={e => window.open(val.html_url)}>
-                                    <p>{val.name}</p>
-                                    <p>{val.description}</p>
-                                    <p>updated_at {val.updated_at}</p>
-                                    <div>
-                                        <button>해당 레포 추가</button>
-                                        <button>레포 보러가기</button>
-                                        <button>이슈 개수</button>
+                                <li className="repo__item">
+                                    <div className="inner__text">
+                                        <h3>{val.name}</h3>
+                                        <p>{val.description}</p>
+                                        <p>updated_at {val.updated_at}</p>
+                                    </div>
+                                    <div className="inner__status">
+                                        <p>issues : {val.open_issues}</p>
+                                        <button><FaPlus /></button>
+                                        <a href={val.html_url} target="_blank"><FaLink /></a>
                                     </div>
                                 </li>
                             )
@@ -88,8 +84,8 @@ const SearchForm = () => {
                     }
                 </ul>
             }
-        </>
-    )
+        </div>
+    );
 }
 
 export default SearchForm;
