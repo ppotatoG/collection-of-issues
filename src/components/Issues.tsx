@@ -13,14 +13,13 @@ const Issues = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const fetchRepos = async () => {
+        setLoading(true);
+
         await axios.get('https://api.github.com/repos/michalsnik/aos/issues')
             .then((response) => {
-                console.log(response.data)
                 // TODO : then 정리
                 setIssues(null);
                 setError(null);
-
-                setLoading(true);
 
                 setIssues(response.data.map((val: issue) => {
                     const {number, html_url, title, user, comments} = val;
@@ -32,32 +31,29 @@ const Issues = () => {
                         comments : comments
                     };
                 }))
-
-                setLoading(false);
             }).catch((error) => {
                 alert(error.message)
-                setLoading(false);
             });
+
+        setLoading(false);
     };
 
     useEffect(() => {
         fetchRepos();
     }, []);
 
-    if (loading) return <Loading />;
-    if (error) return <div>에러가 발생했습니다</div>;
-    if (!issues) return null;
-
     return (
         <div>
+            { loading && <Loading /> }
+
             {
                 issues &&
-                <ul className="repo">
+                <ul className="issues">
                     {
                         Object.values(issues).map((val : issue, idx: number) => {
                             return (
                                 <li
-                                    className="repo__item"
+                                    className="issues__item"
                                     onClick={e => window.open(val.html_url)}
                                     key={idx}
                                 >
