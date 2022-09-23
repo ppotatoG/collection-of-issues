@@ -1,10 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import reportWebVitals from './reportWebVitals';
+
 import './styles/reset.css';
-import Repos from './components/repositories';
+
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+} from "react-router-dom";
+
 import SearchForm from './components/searchForm';
 import Issues from './components/Issues';
-import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -12,7 +19,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <SearchForm />
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Issues />} />
+                <Route path="issues" element={<Issues />} />
+                <Route path="searchForm" element={<SearchForm />} />
+            </Routes>
+        </BrowserRouter>
     </React.StrictMode>
 );
 
