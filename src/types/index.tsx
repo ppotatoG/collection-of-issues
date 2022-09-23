@@ -3,6 +3,7 @@ export interface issue {
     html_url: string,
     title: string,
     user: string | any
+    comments: number
 };
 
 export interface Repositories {
