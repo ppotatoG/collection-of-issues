@@ -14,25 +14,25 @@ const SearchForm = () => {
 
     const SearchRepos = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchRepos();
+        fetchRepos(searchText);
         window.scrollTo(0, 0);
     };
 
-    const fetchRepos = async () => {
+    const fetchRepos = async (repoName : string) => {
         setLoading(true);
-        await axios.get(`https://api.github.com/search/repositories?q=${searchText}`)
+        await axios.get(`https://api.github.com/search/repositories?q=${repoName}`)
             .then((response) => {
                 // TODO : then 정리
                 setRepos(null);
 
                 setRepos(response.data.items.map((val: Repositories) => {
-                    const {name, html_url, description, updated_at, open_issues} = val;
+                    const {name, html_url, description, updated_at, open_issues, url} = val;
                     return {
                         name: name,
                         html_url: html_url,
                         description : description,
                         updated_at : updated_at,
-                        open_issues : open_issues
+                        url : url
                     };
                 }))
             }).catch((error) => {
@@ -40,6 +40,22 @@ const SearchForm = () => {
             });
 
         setLoading(false);
+    };
+
+    const viewIssueArr : string[] = [];
+
+    const addRepo = (url : string) => {
+        const viewIssue : string = JSON.parse(localStorage.getItem('viewIssue') || '{}');
+
+        if(viewIssue.length >= 4) {
+            alert('등록 개수는 최대 4개로 제한');
+            return false;
+        }
+
+        viewIssueArr.push(url);
+        localStorage.setItem('viewIssue', JSON.stringify(viewIssueArr));
+        
+        alert('추가 완료');
     };
 
     return (
@@ -73,8 +89,9 @@ const SearchForm = () => {
                                             <p>updated_at {val.updated_at}</p>
                                         </div>
                                         <div className="inner__status">
+                                            {/*TODO : 0개 초과일때만 노출*/}
                                             <p>issues : {val.open_issues}</p>
-                                            <button><FaPlus /></button>
+                                            <button onClick={() => addRepo(val.url)}><FaPlus /></button>
                                             <a href={val.html_url} target="_blank"><FaLink /></a>
                                         </div>
                                     </li>

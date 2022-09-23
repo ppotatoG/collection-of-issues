@@ -24,3 +24,10 @@ https://api.github.com/repos/michalsnik/aos/issues
 ```
 
 ## [router 연결하기](https://han-py.tistory.com/445)
+
+## flow?
+
+1. `search` : addRepo, localStorage.set
+2. `issue` 
+    - localStorage 기준으로 data 뿌려주기
+    - localStorage 내용 삭제 가능
