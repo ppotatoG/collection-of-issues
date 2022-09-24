@@ -8,35 +8,39 @@ import { FaRegDotCircle, FaRegCommentAlt } from "react-icons/fa";
 import '../styles/issues.scss';
 
 const Issues = () => {
-    const [issues, setIssues] = useState<issue | null>(null);
+    const [issues, setIssues] = useState<any>('');
     const [loading, setLoading] = useState<boolean>(true);
 
-    console.log(localStorage)
+    const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
+    const getIssueUrls = repos.map((v : string) => axios.get(`${v}/issues`));
 
     const fetchRepos = () => {
         setLoading(true);
 
-        axios.get('https://api.github.com/repos/michalsnik/aos/issues')
-            .then((response) => {
-                // TODO : then 정리
-                setIssues(null);
+        axios.all([...getIssueUrls])
+            .then(axios.spread((...res) => {
+                    console.log(res)
+                res.forEach((item : any) => {
+                    // setIssues(res.data.map((val: issue) => {
+                    //     const {number, html_url, title, user, comments} = val;
+                    //     return {
+                    //         number: number,
+                    //         html_url: html_url,
+                    //         title : title,
+                    //         user : user.login,
+                    //         comments : comments
+                    //     };
+                    // }))
 
-                setIssues(response.data.map((val: issue) => {
-                    const {number, html_url, title, user, comments} = val;
-                    return {
-                        number: number,
-                        html_url: html_url,
-                        title : title,
-                        user : user.login,
-                        comments : comments
-                    };
-                }))
-            }).catch((error) => {
-                alert(error.message)
-            });
+                    console.log(item)
+                })
+            })).catch(e => {
+                console.log(e);
+            })
 
         setLoading(false);
     };
+
 
     useEffect(() => {
         fetchRepos();
@@ -47,10 +51,10 @@ const Issues = () => {
             { loading && <Loading /> }
 
             {
-                issues &&
-                <ul className="issues">
+                issues
+                ? <ul className="issues">
                     {
-                        Object.values(issues).map((val : issue, idx: number) => {
+                        Object.values(issues).map((val : any, idx: number) => {
                             return (
                                 <li
                                     className="issues__item"
@@ -72,6 +76,7 @@ const Issues = () => {
                         })
                     }
                 </ul>
+                : <p>없어!</p>
             }
         </div>
     );
