@@ -9,17 +9,17 @@ import '../styles/issues.scss';
 
 const Issues = () => {
     const [issues, setIssues] = useState<issue | null>(null);
-    const [error, setError] = useState<object | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const fetchRepos = async () => {
+    console.log(localStorage)
+
+    const fetchRepos = () => {
         setLoading(true);
 
-        await axios.get('https://api.github.com/repos/michalsnik/aos/issues')
+        axios.get('https://api.github.com/repos/michalsnik/aos/issues')
             .then((response) => {
                 // TODO : then 정리
                 setIssues(null);
-                setError(null);
 
                 setIssues(response.data.map((val: issue) => {
                     const {number, html_url, title, user, comments} = val;
@@ -54,7 +54,7 @@ const Issues = () => {
                             return (
                                 <li
                                     className="issues__item"
-                                    onClick={e => window.open(val.html_url)}
+                                    onClick={() => window.open(val.html_url)}
                                     key={idx}
                                 >
                                     <FaRegDotCircle />

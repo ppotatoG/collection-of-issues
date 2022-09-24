@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import axios from 'axios';
 import Loading from './loading';
 
-import '../styles/search.scss';
+import { Repositories } from '../types';
 import { FaSearch, FaLink, FaPlus } from "react-icons/fa";
 
-import { Repositories } from '../types';
+import '../styles/search.scss';
 
 const SearchForm = () => {
     const [searchText, setSearchText] = useState<string | ''>('');
@@ -18,9 +18,9 @@ const SearchForm = () => {
         window.scrollTo(0, 0);
     };
 
-    const fetchRepos = async (repoName : string) => {
+    const fetchRepos = (repoName : string) => {
         setLoading(true);
-        await axios.get(`https://api.github.com/search/repositories?q=${repoName}`)
+        axios.get(`https://api.github.com/search/repositories?q=${repoName}`)
             .then((response) => {
                 // TODO : then 정리
                 setRepos(null);
@@ -32,7 +32,8 @@ const SearchForm = () => {
                         html_url: html_url,
                         description : description,
                         updated_at : updated_at,
-                        url : url
+                        url : url,
+                        open_issues : open_issues
                     };
                 }))
             }).catch((error) => {
@@ -63,7 +64,7 @@ const SearchForm = () => {
             { loading && <Loading /> }
 
             <div className="search">
-                <form action="submit" onSubmit={SearchRepos} >
+                <form onSubmit={SearchRepos} >
                     <label htmlFor="searchText">
                         <input
                             id="searchText"
@@ -92,7 +93,7 @@ const SearchForm = () => {
                                             {/*TODO : 0개 초과일때만 노출*/}
                                             <p>issues : {val.open_issues}</p>
                                             <button onClick={() => addRepo(val.url)}><FaPlus /></button>
-                                            <a href={val.html_url} target="_blank"><FaLink /></a>
+                                            <a href={val.html_url} target="_blank" rel="noreferrer"><FaLink /></a>
                                         </div>
                                     </li>
                                 )
