@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import axios from 'axios';
-import Loading from './loading';
+import Loading from 'components/loading';
 
-import { Repositories } from '../types';
+import { Repositories } from 'types';
 import { FaSearch, FaLink, FaPlus } from "react-icons/fa";
 
-import '../styles/search.scss';
+import 'styles/search.scss';
 
 const SearchForm = () => {
     const [searchText, setSearchText] = useState<string | ''>('');

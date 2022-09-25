@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import Loading from './loading';
+import Loading from 'components/loading';
 
-import { issue } from '../types';
+import { issue } from 'types';
 import { FaRegDotCircle, FaRegCommentAlt } from "react-icons/fa";
 
-import '../styles/issues.scss';
+import 'styles/issues.scss';
 
 const Issues = () => {
     const [issues, setIssues] = useState<issue[] | null>(JSON.parse(localStorage.getItem('viewIssue') || '{}'));
@@ -64,6 +64,7 @@ const Issues = () => {
                     </li>
                     {
                         Object.values(issues).map((val : issue, idx: number) => {
+                            console.log(val)
                             return (
                                 <li
                                     className="issues__item"

@@ -10,9 +10,9 @@ import {
     Route,
 } from "react-router-dom";
 
-import SearchForm from './components/SearchForm';
-import Issues from './components/Issues';
-import NotFound from './components/NotFound';
+import SearchForm from 'components/SearchForm';
+import Issues from 'components/Issues';
+import NotFound from 'components/NotFound';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
