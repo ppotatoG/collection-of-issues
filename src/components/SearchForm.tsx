@@ -9,7 +9,7 @@ import 'styles/search.scss';
 
 const SearchForm = () => {
     const [searchText, setSearchText] = useState<string | ''>('');
-    const [repos, setRepos] = useState<[] | null>([]);
+    const [repos, setRepos] = useState<[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     const SearchRepos = (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,9 +41,35 @@ const SearchForm = () => {
 
         viewIssueArr.push(url);
         localStorage.setItem('viewIssue', JSON.stringify(viewIssueArr));
-        
+
         alert('추가 완료');
     };
+
+    const ViewRepos = () : JSX.Element => {
+        return (
+            <ul className="repo">
+                {
+                    repos.map((val : Repositories, idx: number) => {
+                        return (
+                            <li className="repo__item" key={idx}>
+                                <div className="inner__text">
+                                    <h3>{val.name}</h3>
+                                    <p>{val.description}</p>
+                                    <p>updated_at {val.updated_at}</p>
+                                </div>
+                                <div className="inner__status">
+                                    {/*TODO : 0개 초과일때만 노출*/}
+                                    <p>issues : {val.open_issues}</p>
+                                    <button onClick={() => addRepo(val.url)}><FaPlus /></button>
+                                    <a href={val.html_url} target="_blank" rel="noreferrer"><FaLink /></a>
+                                </div>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        )
+    }
 
     return (
         <>
@@ -62,31 +88,7 @@ const SearchForm = () => {
                     </label>
                     <button><FaSearch /></button>
                 </form>
-
-                {
-                    repos?.length &&
-                    <ul className="repo">
-                        {
-                            repos.map((val : Repositories, idx: number) => {
-                                return (
-                                    <li className="repo__item" key={idx}>
-                                        <div className="inner__text">
-                                            <h3>{val.name}</h3>
-                                            <p>{val.description}</p>
-                                            <p>updated_at {val.updated_at}</p>
-                                        </div>
-                                        <div className="inner__status">
-                                            {/*TODO : 0개 초과일때만 노출*/}
-                                            <p>issues : {val.open_issues}</p>
-                                            <button onClick={() => addRepo(val.url)}><FaPlus /></button>
-                                            <a href={val.html_url} target="_blank" rel="noreferrer"><FaLink /></a>
-                                        </div>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                }
+                {repos.length !== 0 && <ViewRepos />}
             </div>
         </>
     );
