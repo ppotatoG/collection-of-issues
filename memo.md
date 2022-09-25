@@ -8,6 +8,8 @@
 
 [[Develop/React] React, GraphQL, Apollo 맛보기](https://hoons-up.tistory.com/54)
 
+[Importing a Component](https://create-react-app.dev/docs/importing-a-component/#absolute-imports)
+
 1. repositories 검색
 ```
 https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}
@@ -31,3 +33,13 @@ https://api.github.com/repos/michalsnik/aos/issues
 2. `issue` 
     - localStorage 기준으로 data 뿌려주기
     - localStorage 내용 삭제 가능
+
+## fetchIssues
+
+```js
+const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
+
+// setIssues(null)
+// repos 데이터 기준으로 axios.all
+// setIssues((prevIssue : any | null) => [...prevIssue, ...res.data]);
+```
