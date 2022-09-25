@@ -8,7 +8,7 @@ import { FaRegDotCircle, FaRegCommentAlt } from "react-icons/fa";
 import '../styles/issues.scss';
 
 const Issues = () => {
-    const [issues, setIssues] = useState<any>('');
+    const [issues, setIssues] = useState<issue[] | null>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
@@ -17,30 +17,13 @@ const Issues = () => {
     const fetchRepos = () => {
         setLoading(true);
 
-        axios.all([...getIssueUrls])
-            .then(axios.spread((...res) => {
-                    console.log(res)
-                res.forEach((item : any) => {
-                    // setIssues(res.data.map((val: issue) => {
-                    //     const {number, html_url, title, user, comments} = val;
-                    //     return {
-                    //         number: number,
-                    //         html_url: html_url,
-                    //         title : title,
-                    //         user : user.login,
-                    //         comments : comments
-                    //     };
-                    // }))
-
-                    console.log(item)
-                })
-            })).catch(e => {
-                console.log(e);
-            })
-
-        setLoading(false);
+        axios.get(`${repos}/issues`)
+            .then((res) => {
+                setIssues((prevIssue : any | null) => [...prevIssue, ...res.data]);
+            }).catch((error) => {
+                console.log(error.message)
+            }).then(() => setLoading(false));
     };
-
 
     useEffect(() => {
         fetchRepos();
@@ -53,8 +36,9 @@ const Issues = () => {
             {
                 issues
                 ? <ul className="issues">
+                    <li>{repos}</li>
                     {
-                        Object.values(issues).map((val : any, idx: number) => {
+                        Object.values(issues).map((val : issue, idx: number) => {
                             return (
                                 <li
                                     className="issues__item"
@@ -64,7 +48,7 @@ const Issues = () => {
                                     <FaRegDotCircle />
                                     <div>
                                         <h3>{val.title}</h3>
-                                        <p>#{val.number} by {val.user}</p>
+                                        <p>#{val.number} by {val.user.login}</p>
                                     </div>
 
                                     {

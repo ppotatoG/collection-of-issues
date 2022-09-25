@@ -9,38 +9,24 @@ import '../styles/search.scss';
 
 const SearchForm = () => {
     const [searchText, setSearchText] = useState<string | ''>('');
-    const [repos, setRepos] = useState<Repositories | null>(null);
+    const [repos, setRepos] = useState<[] | null>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     const SearchRepos = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchRepos(searchText);
+        fetchRepos();
         window.scrollTo(0, 0);
     };
 
-    const fetchRepos = (repoName : string) => {
+    const fetchRepos = () => {
         setLoading(true);
-        axios.get(`https://api.github.com/search/repositories?q=${repoName}`)
-            .then((response) => {
-                // TODO : then 정리
-                setRepos(null);
 
-                setRepos(response.data.items.map((val: Repositories) => {
-                    const {name, html_url, description, updated_at, open_issues, url} = val;
-                    return {
-                        name: name,
-                        html_url: html_url,
-                        description : description,
-                        updated_at : updated_at,
-                        url : url,
-                        open_issues : open_issues
-                    };
-                }))
+        axios.get(`https://api.github.com/search/repositories?q=${searchText}`)
+            .then((res) => {
+                setRepos(res.data.items);
             }).catch((error) => {
-                alert(error);
-            });
-
-        setLoading(false);
+                console.log(error);
+            }).then(() => setLoading(false));
     };
 
     const viewIssueArr : string[] = [];
@@ -81,7 +67,7 @@ const SearchForm = () => {
                     repos &&
                     <ul className="repo">
                         {
-                            Object.values(repos).map((val : Repositories, idx: number) => {
+                            repos.map((val : Repositories, idx: number) => {
                                 return (
                                     <li className="repo__item" key={idx}>
                                         <div className="inner__text">
