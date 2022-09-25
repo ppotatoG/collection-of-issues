@@ -7,18 +7,36 @@
     &__item {
         position: relative;
         padding: 2vw 8vw 2vw 2vw;
-        border-bottom: 1px solid #eee;
+        border-top: 1px solid #eee;
         transition: background-color .2s;
         display: flex;
         gap: 5px;
         align-items: flex-start;
 
-        &:hover {
-            background: #eee;
+        &:first-child {
+            display: flex;
+            border-top: none;
+            button {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                background: green;
+                border-radius: 20px;
+                padding: 5px 10px;
+                color: #fff;
+                transition: transform .2s;
+                &:hover {
+                    transform: translateY(-5px);
+                }
+            }
+
+            &:hover {
+                background: transparent;
+            }
         }
 
-        &:last-child {
-            border: none;
+        &:hover {
+            background: #eee;
         }
 
         & > svg {
