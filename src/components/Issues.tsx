@@ -11,7 +11,7 @@ const Issues = () => {
     const [issues, setIssues] = useState<issue[] | null>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
+    let repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
     const getIssueUrls = repos.map((v : string) => axios.get(`${v}/issues`));
 
     const fetchIssues = () => {
@@ -33,13 +33,15 @@ const Issues = () => {
     const deleteRepo = (e : any, repoUrl : string) => {
         e.preventDefault();
 
-        repos.filter((v : string) => v !== repoUrl);
+        repos = repos.filter((v : string) => v !== repoUrl);
         localStorage.setItem('viewIssue', JSON.stringify(repos));
+
+        fetchIssues();
     }
 
     const ViewIssues = () : JSX.Element | any => {
-        console.log(issues)
         if (issues) {
+            {/*TODO : else 추가하기*/}
             return (
                 <ul className="issues">
                     <li className="issues__item">
