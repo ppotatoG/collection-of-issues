@@ -64,7 +64,7 @@ const SearchForm = () => {
                 </form>
 
                 {
-                    repos &&
+                    repos?.length &&
                     <ul className="repo">
                         {
                             repos.map((val : Repositories, idx: number) => {
