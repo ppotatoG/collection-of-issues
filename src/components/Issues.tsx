@@ -8,7 +8,7 @@ import { FaRegDotCircle, FaRegCommentAlt, FaTimes } from "react-icons/fa";
 import 'styles/issues.scss';
 
 const Issues = () => {
-    const [issues, setIssues] = useState<any>([]);
+    const [issues, setIssues] = useState<any[]>([]);
     const [repos, setRepos] = useState<string[]>(JSON.parse(localStorage.getItem('viewIssue') || '[]'));
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -17,10 +17,10 @@ const Issues = () => {
             setLoading(true);
             setIssues([]);
 
-            axios.all(repos.map((repo : any) => axios.get(`${repo}/issues`)))
+            axios.all(repos.map((repo : string) => axios.get(`${repo}/issues`)))
                 .then((data) => {
                     data.forEach(item => {
-                        setIssues((prevIssue: any | null) => [...prevIssue, ...item.data]);
+                        setIssues((prevIssue: string[]) => [...prevIssue, ...item.data]);
                     })
                 }).catch(e => {
                     console.log(e);
@@ -28,7 +28,7 @@ const Issues = () => {
         }
     };
 
-    const deleteRepo = (e : any, repoUrl : string) => {
+    const deleteRepo = (e : React.MouseEvent<HTMLButtonElement>, repoUrl : string) => {
         const repoName = repoUrl.split('https://api.github.com/repos/')[1].split('/')[0];
         e.preventDefault();
 
@@ -40,13 +40,13 @@ const Issues = () => {
         fetchIssues();
     }
 
-    const ViewIssues = () : JSX.Element | any => {
+    const ViewIssues = () : JSX.Element => {
         if (issues.length && repos.length) {
             return (
                 <ul className="issues">
                     <li className="issues__item">
                         {
-                            repos.map((repo : any, idx : number) => {
+                            repos.map((repo : string, idx : number) => {
                                 const [userName, repoName] = repo.split('https://api.github.com/repos/')[1].split('/');
                                 return (
                                     <button
