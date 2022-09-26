@@ -55,8 +55,7 @@ const SearchForm = () => {
                                     <p>updated_at {val.updated_at}</p>
                                 </div>
                                 <div className="inner__status">
-                                    {/*TODO : 0개 초과일때만 노출*/}
-                                    <p>issues : {val.open_issues}</p>
+                                    {val.open_issues !== 0 && <p>issues : {val.open_issues}</p>}
                                     <button onClick={() => addRepo(val.url)}><FaPlus /></button>
                                     <a href={val.html_url} target="_blank" rel="noreferrer"><FaLink /></a>
                                 </div>
