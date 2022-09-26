@@ -55,3 +55,7 @@ const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
 ## axios.all
 
 [https://blog.logrocket.com/using-axios-all-make-concurrent-requests/](https://blog.logrocket.com/using-axios-all-make-concurrent-requests/)
+
+## useEffect
+
+[[React] console.log가 두번 실행된다고?](https://velog.io/@hyes-y-tag/React-useEffect%EA%B0%80-%EB%91%90%EB%B2%88-%EC%8B%A4%ED%96%89%EB%90%9C%EB%8B%A4%EA%B3%A0)

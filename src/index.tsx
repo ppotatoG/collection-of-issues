@@ -19,16 +19,14 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Issues />} />
-                <Route path="issues" element={<Issues />} />
-                <Route path="search" element={<SearchForm />} />
-                <Route path={"*"} element={<NotFound />}/>
-            </Routes>
-        </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Issues />} />
+            <Route path="issues" element={<Issues />} />
+            <Route path="search" element={<SearchForm />} />
+            <Route path={"*"} element={<NotFound />}/>
+        </Routes>
+    </BrowserRouter>
 );
 
 reportWebVitals();
