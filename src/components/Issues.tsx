@@ -9,23 +9,20 @@ import 'styles/issues.scss';
 
 const Issues = () => {
     const [issues, setIssues] = useState<any>([]);
-    const [repos, setRepos] = useState<string[]>(JSON.parse(localStorage.getItem('viewIssue') || '{}'));
+    const [repos, setRepos] = useState<string[]>(JSON.parse(localStorage.getItem('viewIssue') || '[]'));
     const [loading, setLoading] = useState<boolean>(false);
 
     const fetchIssues = () => {
-        if (repos) {
+        if (Object.keys(repos).length) {
             setLoading(true);
             setIssues([]);
 
-            const getIssueUrls = repos.map((v : string) => axios.get(`${v}/issues`));
-
-            axios.all([...getIssueUrls])
-                .then(axios.spread((res : any) => {
-                    [res].forEach(item => {
-                        setIssues((prevIssue : any | null) => [...prevIssue, ...item.data]);
+            axios.all(repos.map((repo : any) => axios.get(`${repo}/issues`)))
+                .then((data) => {
+                    data.forEach(item => {
+                        setIssues((prevIssue: any | null) => [...prevIssue, ...item.data]);
                     })
-
-                })).catch(e => {
+                }).catch(e => {
                     console.log(e);
                 }).then(() => setLoading(false));
         }

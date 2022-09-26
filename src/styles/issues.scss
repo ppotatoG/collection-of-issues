@@ -15,6 +15,7 @@
 
         &:first-child {
             display: flex;
+            flex-wrap: wrap;
             border-top: none;
             button {
                 display: flex;

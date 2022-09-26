@@ -51,3 +51,7 @@ const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
 
 // search 후 index 진입 시 repos 초기화
 ```
+
+## axios.all
+
+[https://blog.logrocket.com/using-axios-all-make-concurrent-requests/](https://blog.logrocket.com/using-axios-all-make-concurrent-requests/)
