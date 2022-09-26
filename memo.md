@@ -43,3 +43,11 @@ const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
 // repos 데이터 기준으로 axios.all
 // setIssues((prevIssue : any | null) => [...prevIssue, ...res.data]);
 ```
+
+## localStorage init
+
+```js
+const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
+
+// search 후 index 진입 시 repos 초기화
+```

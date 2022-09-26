@@ -11,6 +11,7 @@ const SearchForm = () => {
     const [searchText, setSearchText] = useState<string | ''>('');
     const [repos, setRepos] = useState<[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const viewIssueArr : string[] = JSON.parse(localStorage.getItem('viewIssue') || '[]');
 
     const SearchRepos = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -29,12 +30,8 @@ const SearchForm = () => {
             }).then(() => setLoading(false));
     };
 
-    const viewIssueArr : string[] = [];
-
     const addRepo = (url : string) => {
-        const viewIssue : string = JSON.parse(localStorage.getItem('viewIssue') || '{}');
-
-        if(viewIssue.length >= 4) {
+        if(viewIssueArr.length >= 4) {
             alert('등록 개수는 최대 4개로 제한');
             return false;
         }
