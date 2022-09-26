@@ -8,40 +8,43 @@ import { FaRegDotCircle, FaRegCommentAlt, FaTimes } from "react-icons/fa";
 import 'styles/issues.scss';
 
 const Issues = () => {
-    const [issues, setIssues] = useState<issue[] | null>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-
-    let repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
-    const getIssueUrls = repos.map((v : string) => axios.get(`${v}/issues`));
+    const [issues, setIssues] = useState<any>([]);
+    const [repos, setRepos] = useState<string[]>(JSON.parse(localStorage.getItem('viewIssue') || '{}'));
+    const [loading, setLoading] = useState<boolean>(false);
 
     const fetchIssues = () => {
-        setLoading(true);
-        setIssues([]);
+        if (repos) {
+            setLoading(true);
+            setIssues([]);
 
-        axios.all([...getIssueUrls])
-            .then(axios.spread((res : any) => {
-                [res].forEach(item => {
-                    console.log(item);
-                    setIssues((prevIssue : any | null) => [...prevIssue, ...item.data]);
-                })
+            const getIssueUrls = repos.map((v : string) => axios.get(`${v}/issues`));
 
-            })).catch(e => {
-                console.log(e);
-            }).then(() => setLoading(false));
+            axios.all([...getIssueUrls])
+                .then(axios.spread((res : any) => {
+                    [res].forEach(item => {
+                        setIssues((prevIssue : any | null) => [...prevIssue, ...item.data]);
+                    })
+
+                })).catch(e => {
+                    console.log(e);
+                }).then(() => setLoading(false));
+        }
     };
 
     const deleteRepo = (e : any, repoUrl : string) => {
+        const repoName = repoUrl.split('https://api.github.com/repos/')[1].split('/')[0];
         e.preventDefault();
 
-        repos = repos.filter((v : string) => v !== repoUrl);
+        alert(`delete ${repoName}`);
+
+        setRepos(repos.filter((v : string) => v !== repoUrl));
         localStorage.setItem('viewIssue', JSON.stringify(repos));
 
         fetchIssues();
     }
 
     const ViewIssues = () : JSX.Element | any => {
-        if (issues) {
-            {/*TODO : else 추가하기*/}
+        if (issues.length && repos.length) {
             return (
                 <ul className="issues">
                     <li className="issues__item">
@@ -83,6 +86,29 @@ const Issues = () => {
                         })
                     }
                 </ul>
+            )
+        } else {
+            return(
+                <h3
+                    style={{
+                        display:'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        width: '100%',
+                        height: '100vh',
+                        fontSize: '30px'
+                    }}
+                >
+                    not issues
+                    <a
+                        href="./search"
+                        rel="noreferrer"
+                        style={{textDecoration: 'underline'}}
+                    >
+                        search
+                    </a>
+                </h3>
             )
         }
     }

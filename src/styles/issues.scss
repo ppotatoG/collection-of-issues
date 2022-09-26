@@ -25,8 +25,14 @@
                 padding: 5px 10px;
                 color: #fff;
                 transition: transform .2s;
+                svg {
+                    transition: transform .2s;
+                }
                 &:hover {
                     transform: translateY(-5px);
+                    svg {
+                        transform: rotate(90deg);
+                    }
                 }
             }
 
