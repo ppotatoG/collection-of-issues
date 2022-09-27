@@ -64,3 +64,8 @@ const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
 
 ## item.updated_at 시간 상이
 - `updated_at`에 찍히는 시간과 실제 최근 업데이트 시간 상이
+
+## 주요 기능
+- `repositories` 검색
+- `repositories` 검색 시 `정렬('default', 'stars', 'forks', 'updated')`
+- 추가한 repositories에 대한 `issues` 모음
