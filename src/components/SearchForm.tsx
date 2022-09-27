@@ -47,12 +47,13 @@ const SearchForm = () => {
             <ul className="repo">
                 {
                     repos.map((val : Repositories, idx: number) => {
+                        const update = new Intl.DateTimeFormat('ko').format(new Date(val.updated_at)).slice(0, -1);
                         return (
                             <li className="repo__item" key={idx}>
                                 <div className="inner__text">
                                     <h3>{val.name}</h3>
                                     <p>{val.description}</p>
-                                    <p>updated_at {val.updated_at}</p>
+                                    <p>updated_at {update}</p>
                                 </div>
                                 <div className="inner__status">
                                     {val.open_issues !== 0 && <p>issues : {val.open_issues}</p>}
