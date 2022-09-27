@@ -10,6 +10,8 @@
 
 [Importing a Component](https://create-react-app.dev/docs/importing-a-component/#absolute-imports)
 
+[REST API/Search](https://docs.github.com/en/rest/search#search-repositories)
+
 1. repositories 검색
 ```
 https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}
@@ -59,3 +61,6 @@ const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
 ## useEffect
 
 [[React] console.log가 두번 실행된다고?](https://velog.io/@hyes-y-tag/React-useEffect%EA%B0%80-%EB%91%90%EB%B2%88-%EC%8B%A4%ED%96%89%EB%90%9C%EB%8B%A4%EA%B3%A0)
+
+## item.updated_at 시간 상이
+- `updated_at`에 찍히는 시간과 실제 최근 업데이트 시간 상이

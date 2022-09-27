@@ -22,7 +22,7 @@ const SearchForm = () => {
     const fetchRepos = () => {
         setLoading(true);
 
-        axios.get(`https://api.github.com/search/repositories?q=${searchText}`)
+        axios.get(`https://api.github.com/search/repositories?q=${searchText}&sort=updated`)
             .then((res) => {
                 setRepos(res.data.items);
             }).catch((error) => {
