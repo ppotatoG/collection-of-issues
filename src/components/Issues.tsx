@@ -62,6 +62,7 @@ const Issues = () => {
                     </li>
                     {
                         issues.map((val : issue, idx: number) => {
+                            const [, repoName] = val.html_url.split('https://github.com/')[1].split('/');
                             return (
                                 <li
                                     className="issues__item"
@@ -70,7 +71,7 @@ const Issues = () => {
                                     <FaRegDotCircle />
                                     <div>
                                         <h3>{val.title}</h3>
-                                        <p>#{val.number} by {val.user.login}</p>
+                                        <p>#{val.number} by {val.user.login} in <b>{repoName}</b></p>
                                     </div>
 
                                     {
