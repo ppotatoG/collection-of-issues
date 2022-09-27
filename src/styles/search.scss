@@ -39,10 +39,50 @@
         }
 
         button {
-            flex: 0 0 80px;
+            flex: 0 0 50px;
             height: 100%;
         }
     }
+
+    .selectBox {
+        position: relative;
+        button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px; 
+            * {
+                display: block;
+            }
+            svg {
+                margin-top: -10px;
+            }
+            span {
+                color: rgb(133, 133, 133);
+                font-size: 1.2rem;
+            }
+        }
+        ul {
+            width: max-content;
+            position: absolute;
+            top: 30px;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 0 4px 2px #eee;
+            border-radius: 10px;
+            li {
+                padding: 10px 20px;
+                transition: background-color .2s;
+                text-align: right;
+                cursor: pointer;
+                &:hover {
+                    background: #eee;
+                }
+            }
+        }
+    }
+
     .repo {
         width: 100%;
         display: grid;

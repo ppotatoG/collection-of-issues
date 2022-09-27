@@ -1,16 +1,19 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Loading from 'components/loading';
 
 import { Repositories } from 'types';
-import { FaSearch, FaLink, FaPlus } from "react-icons/fa";
+import { FaSearch, FaLink, FaPlus, FaSortDown} from "react-icons/fa";
 
 import 'styles/search.scss';
 
 const SearchForm = () => {
-    const [searchText, setSearchText] = useState<string | ''>('');
+    const [searchText, setSearchText] = useState<string>('');
     const [repos, setRepos] = useState<[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [sortView, setSortView] = useState<boolean>(false);
+    const [sortSelectValue, setSortSelectValue] = useState<string>('');
+
     const viewIssueArr : string[] = JSON.parse(localStorage.getItem('viewIssue') || '[]');
 
     const SearchRepos = (e: React.FormEvent<HTMLFormElement>) => {
@@ -19,11 +22,18 @@ const SearchForm = () => {
         window.scrollTo(0, 0);
     };
 
-    const fetchRepos = () => {
-        setLoading(true);
+    const fetchRepos = (curValue? : string) => {
+        if (!searchText) return alert('레포지토리명을 입력해주세요');
 
-        axios.get(`https://api.github.com/search/repositories?q=${searchText}&sort=updated`)
+        setLoading(true);
+        setSortView(false);
+
+        // TODO : error undefind
+        const sort = curValue && curValue !== 'default' ? `&sort=${curValue}` : '';
+
+        axios.get(`https://api.github.com/search/repositories?q=${searchText}${sort}`)
             .then((res) => {
+                // console.log(`https://api.github.com/search/repositories?q=${searchText}${sort}`)
                 setRepos(res.data.items);
             }).catch((error) => {
                 console.log(error);
@@ -41,6 +51,43 @@ const SearchForm = () => {
 
         alert('추가 완료');
     };
+
+    const selectSort = ( selectedValue : string ) => {
+        setSortSelectValue(selectedValue)
+        setSortView(false);
+        if (searchText) fetchRepos(selectedValue);
+    }
+
+    const SelectBox = () : JSX.Element => {
+        const sortValues : string[] = [ 'default', 'stars', 'forks', 'updated' ];
+
+        return (
+            <div className="selectBox">
+                <button
+                    type="button" 
+                    onClick={() => setSortView(!sortView)}
+                    >
+                        {sortSelectValue && <span>{sortSelectValue}</span>}
+                        <FaSortDown/>
+                    </button>
+                <ul>
+                    {
+                    sortView &&
+                    sortValues.map((curValue : string, idx : number) => {
+                        return (
+                            <li
+                                key={idx}
+                                value={curValue}
+                                onClick={() => selectSort(curValue)}
+                            >
+                                {curValue}
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
+        )
+    }
 
     const ViewRepos = () : JSX.Element => {
         return (
@@ -68,6 +115,10 @@ const SearchForm = () => {
         )
     }
 
+    useEffect(() => {
+        console.log(sortSelectValue)
+    }, [sortSelectValue])
+
     return (
         <>
             { loading && <Loading /> }
@@ -83,6 +134,7 @@ const SearchForm = () => {
                             onChange={e => setSearchText(e.target.value)}
                         />
                     </label>
+                    <SelectBox />
                     <button><FaSearch /></button>
                 </form>
                 {repos.length !== 0 && <ViewRepos />}
