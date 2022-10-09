@@ -3,7 +3,7 @@ import axios from 'axios';
 import Loading from 'components/loading';
 
 import { Repositories } from 'types';
-import { FaSearch, FaLink, FaPlus, FaSortDown} from "react-icons/fa";
+import { FaSearch, FaLink, FaPlus, FaSortDown } from "react-icons/fa";
 
 import 'styles/search.scss';
 
@@ -28,12 +28,10 @@ const SearchForm = () => {
         setLoading(true);
         setSortView(false);
 
-        // TODO : error undefind
         const sort = curValue && curValue !== 'default' ? `&sort=${curValue}` : '';
 
         axios.get(`https://api.github.com/search/repositories?q=${searchText}${sort}`)
             .then((res) => {
-                // console.log(`https://api.github.com/search/repositories?q=${searchText}${sort}`)
                 setRepos(res.data.items);
             }).catch((error) => {
                 console.log(error);
@@ -43,6 +41,11 @@ const SearchForm = () => {
     const addRepo = (url : string) => {
         if(viewIssueArr.length >= 4) {
             alert('등록 개수는 최대 4개로 제한');
+            return false;
+        }
+
+        if ((viewIssueArr.find(v => v === url))) {
+            alert('이미 등록된 레포지토리');
             return false;
         }
 
@@ -116,7 +119,6 @@ const SearchForm = () => {
     }
 
     useEffect(() => {
-        console.log(sortSelectValue)
     }, [sortSelectValue])
 
     return (
