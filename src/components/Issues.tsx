@@ -84,7 +84,7 @@ const Issues = () => {
                                         val.comments !== 0 &&
                                         <p className="comments"><FaRegCommentAlt/>{val.comments}</p>
                                     }
-                                    <a href={val.html_url} target="_blank" rel="author">레포지토리 바로가기</a>
+                                    <a href={val.html_url} target="_blank" rel="noopener noreferrer">레포지토리 바로가기</a>
                                 </li>
                             )
                         })

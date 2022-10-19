@@ -108,7 +108,7 @@ const SearchForm = () => {
                                 <div className="inner__status">
                                     {val.open_issues !== 0 && <p>issues : {val.open_issues}</p>}
                                     <button onClick={() => addRepo(val.url)}><FaPlus /></button>
-                                    <a href={val.html_url} target="_blank" rel="noreferrer"><FaLink /></a>
+                                    <a href={val.html_url} target="_blank" rel="noopener noreferrer"><FaLink /></a>
                                 </div>
                             </li>
                         )
