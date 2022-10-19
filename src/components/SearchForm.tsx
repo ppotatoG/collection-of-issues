@@ -123,8 +123,7 @@ const SearchForm = () => {
 
     return (
         <>
-            { loading && <Loading /> }
-
+            <Loading isLoading={loading}/>
             <div className="search">
                 <form onSubmit={SearchRepos} >
                     <label htmlFor="searchText">
