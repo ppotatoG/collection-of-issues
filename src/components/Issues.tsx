@@ -35,7 +35,13 @@ const Issues = () => {
         alert(`delete ${repoName}`);
 
         setRepos(repos.filter((v : string) => v !== repoUrl));
+
+        console.log('setRepo')
+        console.log(repos)
+
         localStorage.setItem('viewIssue', JSON.stringify(repos));
+
+        setRepos(repos);
 
         fetchIssues();
     }
@@ -113,7 +119,7 @@ const Issues = () => {
 
     useEffect(() => {
         fetchIssues();
-    }, []);
+    }, [repos]);
 
     return (
         <div>

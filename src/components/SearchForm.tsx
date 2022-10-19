@@ -119,7 +119,7 @@ const SearchForm = () => {
     }
 
     useEffect(() => {
-    }, [sortSelectValue])
+    }, [sortSelectValue, repos])
 
     return (
         <>
