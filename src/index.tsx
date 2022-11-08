@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 
 import SearchForm from 'components/SearchForm';
-import Issues from 'components/Issues';
+import Issues from 'components/Issue';
 import NotFound from 'components/NotFound';
 
 const root = ReactDOM.createRoot(
