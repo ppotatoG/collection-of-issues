@@ -7,7 +7,7 @@ import { FaSearch, FaLink, FaPlus, FaSortDown } from "react-icons/fa";
 
 import 'styles/search.scss';
 
-const SearchForm = () => {
+const Index = () => {
     const [searchText, setSearchText] = useState<string>('');
     const [repos, setRepos] = useState<[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -144,4 +144,4 @@ const SearchForm = () => {
     );
 }
 
-export default SearchForm;
+export default Index;
