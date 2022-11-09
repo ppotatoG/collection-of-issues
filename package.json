@@ -15,6 +15,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "sass": "^1.54.9",
@@ -47,5 +48,8 @@
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
+  },
+  "devDependencies": {
+    "@types/react-modal": "^3.13.1"
   }
 }

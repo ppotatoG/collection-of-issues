@@ -1,7 +1,35 @@
 import 'styles/loading.scss';
+import React from "react";
 
-const Loading = ({isLoading} : any) => {
-    const LoadingComponent = () : JSX.Element | null => {
+// prop이 아니니 따로
+interface Data {
+    title?:string;
+    description:string;
+    name:string;
+    createdAt:string;
+    like:number;
+}
+interface Board extends Data {
+    updatedAt:string;
+}
+
+interface ObjectType<T> {
+    [key:string]:T
+}
+
+interface Props {
+    isLoading?:boolean;
+    data?:Data[]
+}
+
+const a:ObjectType<string | number> = {
+    title:'',
+    description:''
+}
+console.log(a)
+
+const Loading:React.FC<Props> = ({isLoading,data}) => {
+    const LoadingComponent = () : JSX.Element => {
         if(isLoading) {
             return (
                 <div className="loading">
@@ -21,7 +49,7 @@ const Loading = ({isLoading} : any) => {
                 </div>
             )
         }
-        else return null;
+        if(!isLoading) return <></>;
     }
     return (
          <LoadingComponent/>
