@@ -1,31 +1,32 @@
 import 'styles/loading.scss';
+import React from "react";
 
-// TODO: 256b08fe 참고하여 리팩토링
-const Loading = ({isLoading} : any) => {
-    const LoadingComponent = () : JSX.Element | null => {
-        if(isLoading) {
-            return (
-                <div className="loading">
-                    <div className="loadingio-spinner-spinner-fi70xeirlmk">
-                        <div className="ldio-h1i410tahtn">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
+interface Props {
+    isLoading:boolean
+}
+
+const Loading : React.FC<Props>= ({isLoading}) => {
+    if(isLoading) {
+        return (
+            <div className="loading">
+                <div className="loadingio-spinner-spinner-fi70xeirlmk">
+                    <div className="ldio-h1i410tahtn">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
                 </div>
-            )
-        }
-        else return null;
+            </div>
+        )
     }
     return (
-        <LoadingComponent/>
+        <></>
     );
 }
 
