@@ -69,3 +69,47 @@ const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
 - `repositories` 검색
 - `repositories` 검색 시 `정렬('default', 'stars', 'forks', 'updated')`
 - 추가한 repositories에 대한 `issues` 모음
+
+--- 
+
+## async try
+**Q**: `Promise`에서 반환되는 `then`은 무시하는건가여?
+```js
+const fetchIssues = async () => {
+  try {
+      setLoading(true);
+      if (Object.keys(repos).length) {
+          setIssues([]);
+          const res = await axios.all(repos.map((repo : string) => axios.get(`${repo}/issues`)))
+          res.map(item => {
+              setIssues((prevIssue: string[]) => [...prevIssue, ...item.data]);
+          })
+      }
+  } catch(e) {
+      console.error(`${e} fetchIssues CALL FAILURE`)
+  } finally {
+      setLoading(false)
+  }
+};
+```
+[async 함수와 try-catch](https://velog.io/@vraimentres/async-%ED%95%A8%EC%88%98%EC%99%80-try-catch)
+
+### useEffect
+
+```js
+useEffect(() => {
+  localStorage.setItem('viewIssue', JSON.stringify(repos));
+}, [fetchIssues, repos]);
+```
+
+## Early Return
+
+```js
+// 기존
+if( true ) return true
+else return false
+
+// Early Return
+if( true ) return true
+return false
+```
