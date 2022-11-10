@@ -110,7 +110,8 @@ const Issues = () => {
 
     useEffect(() => {
         localStorage.setItem('viewIssue', JSON.stringify(repos));
-    }, [fetchIssues, repos]);
+        fetchIssues();
+    }, [repos]);
 
     return (
         <div>
