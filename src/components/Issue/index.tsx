@@ -1,14 +1,13 @@
-import React, {useState, useEffect, useLayoutEffect, useCallback} from "react";
+import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import Loading from 'components/loading';
 
-import { issue } from 'types';
-import { FaRegDotCircle, FaRegCommentAlt, FaTimes } from "react-icons/fa";
+import {issue} from 'types';
+import {FaRegDotCircle, FaRegCommentAlt, FaTimes} from "react-icons/fa";
 
 import 'styles/issues.scss';
 
 const Issues = () => {
-
     const [issues, setIssues] = useState<any[]>([]);
     const [repos, setRepos] = useState<string[]>(JSON.parse(localStorage.getItem('viewIssue') || '[]'));
     const [loading, setLoading] = useState<boolean>(false);
@@ -18,52 +17,33 @@ const Issues = () => {
             setLoading(true);
             if (Object.keys(repos).length) {
                 setIssues([]);
-                const res = await axios.all(repos.map((repo : string) => axios.get(`${repo}/issues`)))
+                const res = await axios.all(repos.map((repo: string) => axios.get(`${repo}/issues`)))
                 res.map(item => {
-                    setIssues((prevIssue: string[]) => [...prevIssue, ...item.data]);
+                    return setIssues((prevIssue: string[]) => [...prevIssue, ...item.data]);
                 })
             }
-        } catch(e) {
+        } catch (e) {
             console.error(`${e} fetchIssues CALL FAILURE`)
         } finally {
             setLoading(false)
         }
     };
 
-    const [sample, setSample] = useState<any>()
-    const a = async () => {
-        try {
-            const sampleUrl = await fetch('naver.com')
-            const data = sampleUrl.json()
-            setSample(data)
-
-        } catch(e) {
-            console.error(`${e} SAMPLE URL CALL FAILURE`)
-        }
-    }
-
-
-    const deleteRepo = (e : React.MouseEvent<HTMLButtonElement>, repoUrl : string) => {
+    const deleteRepo = (e: React.MouseEvent<HTMLButtonElement>, repoUrl: string) => {
         const repoName = repoUrl.split('https://api.github.com/repos/')[1].split('/')[0];
         e.preventDefault();
 
         alert(`delete ${repoName}`);
-
-        // setRepos(repos.filter((v : string) => v !== repoUrl));
-        setRepos(prev => prev.filter((v : string) => v !== repoUrl));
+        setRepos(prev => prev.filter((v: string) => v !== repoUrl));
     }
 
-    useEffect(()=>{
-        localStorage.setItem('viewIssue', JSON.stringify(repos));
-    },[repos])
-
-    const ViewIssues = () : JSX.Element => {
+    const ViewIssues = (): JSX.Element => {
         if (issues.length && repos.length) {
             return (
                 <ul className="issues">
                     <li className="issues__item">
                         {
-                            repos.map((repo : string, idx : number) => {
+                            repos.map((repo: string, idx: number) => {
                                 const [userName, repoName] = repo.split('https://api.github.com/repos/')[1].split('/');
                                 return (
                                     <button
@@ -71,21 +51,21 @@ const Issues = () => {
                                         onClick={(e) => deleteRepo(e, repo)}
                                     >
                                         {repoName} By.{userName}
-                                        <FaTimes />
+                                        <FaTimes/>
                                     </button>
                                 )
                             })
                         }
                     </li>
                     {
-                        issues.map((val : issue, idx: number) => {
-                            const [_, repoName] = val.html_url.split('https://github.com/')[1].split('/');
+                        issues.map((val: issue, idx: number) => {
+                            const [, repoName] = val.html_url.split('https://github.com/')[1].split('/');
                             return (
                                 <li
                                     className="issues__item"
                                     key={idx}
                                 >
-                                    <FaRegDotCircle />
+                                    <FaRegDotCircle/>
                                     <div>
                                         <h3>{val.title}</h3>
                                         <p>#{val.number} by {val.user.login} in <b>{repoName}</b></p>
@@ -103,10 +83,10 @@ const Issues = () => {
                 </ul>
             )
         } else {
-            return(
+            return (
                 <h3
                     style={{
-                        display:'flex',
+                        display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         flexDirection: 'column',
@@ -129,16 +109,13 @@ const Issues = () => {
     }
 
     useEffect(() => {
-        fetchIssues();
-    }, [repos]);
-
-
+        localStorage.setItem('viewIssue', JSON.stringify(repos));
+    }, [fetchIssues, repos]);
 
     return (
         <div>
             <Loading isLoading={loading}/>
-            <ViewIssues />
-
+            <ViewIssues/>
         </div>
     );
 }
