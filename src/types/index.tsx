@@ -2,12 +2,18 @@ export interface IssuesType {
     number: number;
     html_url: string;
     title: string;
-    user: UserObjectType;
     comments: number;
+    created_at: string;
+    body: string;
+    user: UserInfoType;
 }
 
-interface UserObjectType {
-    login: string
+interface UserInfoType {
+    login: string;
+    avatar_url: string;
+    followers_url: string;
+    node_id: string;
+    created_at: string;
 }
 
 export interface RepositoriesType {
