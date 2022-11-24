@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import Loading from 'components/loading';
+import BlankContent from "./blankContent";
 
 import {issue} from 'types';
 import {FaRegDotCircle, FaRegCommentAlt, FaTimes} from "react-icons/fa";
@@ -38,79 +39,56 @@ const Issues = () => {
     }
 
     const ViewIssues = (): JSX.Element => {
-        if (issues.length && repos.length) {
-            return (
-                <ul className="issues">
-                    <li className="issues__item">
-                        {
-                            repos.map((repo: string, idx: number) => {
-                                const [userName, repoName] = repo.split('https://api.github.com/repos/')[1].split('/');
-                                return (
-                                    <button
-                                        key={idx}
-                                        onClick={(e) => deleteRepo(e, repo)}
-                                    >
-                                        {repoName} By.{userName}
-                                        <FaTimes/>
-                                    </button>
-                                )
-                            })
-                        }
-                    </li>
+        if (repos.length === 0) return <BlankContent blankType={'저장된 레포지토리가 없어요'}/>
+        if (issues.length === 0) return <BlankContent blankType={'저장된 레포지토리 내에 추가된 이슈가 없어요'}/>
+        return (
+            <ul className="issues">
+                <li className="issues__item">
                     {
-                        issues.map((val: issue, idx: number) => {
-                            const [, repoName] = val.html_url.split('https://github.com/')[1].split('/');
+                        repos.map((repo: string, idx: number) => {
+                            const [userName, repoName] = repo.split('https://api.github.com/repos/')[1].split('/');
                             return (
-                                <li
-                                    className="issues__item"
+                                <button
                                     key={idx}
+                                    onClick={(e) => deleteRepo(e, repo)}
                                 >
-                                    <FaRegDotCircle/>
-                                    <div>
-                                        <h3>{val.title}</h3>
-                                        <p>#{val.number} by {val.user.login} in <b>{repoName}</b></p>
-                                    </div>
-
-                                    {
-                                        val.comments !== 0 &&
-                                        <p className="comments"><FaRegCommentAlt/>{val.comments}</p>
-                                    }
-                                    <a href={val.html_url} target="_blank" rel="noopener noreferrer">레포지토리 바로가기</a>
-                                </li>
+                                    {repoName} By.{userName}
+                                    <FaTimes/>
+                                </button>
                             )
                         })
                     }
-                </ul>
-            )
-        } else {
-            return (
-                <h3
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexDirection: 'column',
-                        width: '100%',
-                        height: '100vh',
-                        fontSize: '30px'
-                    }}
-                >
-                    not issues
-                    <a
-                        href="./search"
-                        rel="noreferrer"
-                        style={{textDecoration: 'underline'}}
-                    >
-                        search
-                    </a>
-                </h3>
-            )
-        }
+                </li>
+                {
+                    issues.map((val: issue, idx: number) => {
+                        const [, repoName] = val.html_url.split('https://github.com/')[1].split('/');
+                        return (
+                            <li
+                                className="issues__item"
+                                key={idx}
+                            >
+                                <FaRegDotCircle/>
+                                <div>
+                                    <h3>{val.title}</h3>
+                                    <p>#{val.number} by {val.user.login} in <b>{repoName}</b></p>
+                                </div>
+
+                                {
+                                    val.comments !== 0 &&
+                                    <p className="comments"><FaRegCommentAlt/>{val.comments}</p>
+                                }
+                                <a href={val.html_url} target="_blank" rel="noopener noreferrer">레포지토리 바로가기</a>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        )
     }
 
     useEffect(() => {
         localStorage.setItem('viewIssue', JSON.stringify(repos));
-        fetchIssues();
+        fetchIssues()
     }, [repos]);
 
     return (
