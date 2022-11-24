@@ -34,12 +34,22 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-            .body {
-                display: -webkit-box;
-                word-wrap: break-word;
-                -webkit-line-clamp: 5;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
+            .markdown-body {
+                height: 200px;
+                overflow: auto;
+                padding-right: 8px;
+                &::-webkit-scrollbar {
+                    width: 5px;
+                }
+                &::-webkit-scrollbar-thumb {
+                    background-color: #2f3542;
+                    border-radius: 10px;
+                    background-clip: padding-box;
+                }
+                &::-webkit-scrollbar-track {
+                    background-color: grey;
+                    border-radius: 10px;
+                }
             }
         }
 
@@ -71,7 +81,7 @@
             }
         }
 
-        a {
+        & > a {
             position: absolute;
             top: 0;
             left: 0;

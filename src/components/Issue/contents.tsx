@@ -1,6 +1,11 @@
+import React from "react";
+import 'github-markdown-css';
+
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
 import {FaRegCommentAlt} from "react-icons/fa";
 import {IssuesType} from "types";
-import React from "react";
 
 interface ContentsPropType {
     repos: string[]
@@ -52,7 +57,7 @@ const contents = ({repos, setRepos, issues} : ContentsPropType) => {
                             <div className="repo_info">
                                 <p><b>{repoName} #{number}</b></p>
                                 <h3>{title}</h3>
-                                <p className="body">{body}</p>
+                                <ReactMarkdown className="markdown-body" children={body} remarkPlugins={[remarkGfm]}/>
                                 <p>created_at {created}</p>
                             </div>
 
