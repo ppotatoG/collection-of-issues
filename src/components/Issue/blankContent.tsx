@@ -1,6 +1,6 @@
 import React from "react";
 
-type BlankProps = {
+interface BlankProps {
     blankType : string
 }
 

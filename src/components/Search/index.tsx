@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Loading from 'components/loading';
 
-import { Repositories } from 'types';
+import { RepositoriesType } from 'types';
 import { FaSearch, FaLink, FaPlus, FaSortDown } from "react-icons/fa";
 
 import 'styles/search.scss';
@@ -96,7 +96,7 @@ const Index = () => {
         return (
             <ul className="repo">
                 {
-                    repos.map((val : Repositories, idx: number) => {
+                    repos.map((val : RepositoriesType, idx: number) => {
                         const update = new Intl.DateTimeFormat('ko').format(new Date(val.updated_at)).slice(0, -1);
                         return (
                             <li className="repo__item" key={idx}>

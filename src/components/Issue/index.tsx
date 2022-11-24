@@ -2,14 +2,13 @@ import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import Loading from 'components/loading';
 import BlankContent from "./blankContent";
-
-import {issue} from 'types';
-import {FaRegDotCircle, FaRegCommentAlt, FaTimes} from "react-icons/fa";
+import {IssuesType} from "types";
+import {FaRegCommentAlt, FaRegDotCircle, FaTimes} from "react-icons/fa";
 
 import 'styles/issues.scss';
 
 const Issues = () => {
-    const [issues, setIssues] = useState<any[]>([]);
+    const [issues, setIssues] = useState<IssuesType[]>([]);
     const [repos, setRepos] = useState<string[]>(JSON.parse(localStorage.getItem('viewIssue') || '[]'));
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -20,7 +19,7 @@ const Issues = () => {
                 setIssues([]);
                 const res = await axios.all(repos.map((repo: string) => axios.get(`${repo}/issues`)))
                 res.map(item => {
-                    return setIssues((prevIssue: string[]) => [...prevIssue, ...item.data]);
+                    return setIssues((prevIssue: IssuesType[]) => [...prevIssue, ...item.data]);
                 })
             }
         } catch (e) {
@@ -35,7 +34,7 @@ const Issues = () => {
         e.preventDefault();
 
         alert(`delete ${repoName}`);
-        setRepos(prev => prev.filter((v: string) => v !== repoUrl));
+        setRepos((prev : string[])=> prev.filter((v: string) => v !== repoUrl));
     }
 
     const ViewIssues = (): JSX.Element => {
@@ -60,7 +59,7 @@ const Issues = () => {
                     }
                 </li>
                 {
-                    issues.map((val: issue, idx: number) => {
+                    issues.map((val: IssuesType, idx: number) => {
                         const [, repoName] = val.html_url.split('https://github.com/')[1].split('/');
                         return (
                             <li
@@ -83,6 +82,7 @@ const Issues = () => {
                     })
                 }
             </ul>
+
         )
     }
 
