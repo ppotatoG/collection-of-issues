@@ -14,6 +14,7 @@ interface UserInfoType {
     followers_url: string;
     node_id: string;
     created_at: string;
+    html_url: string;
 }
 
 export interface RepositoriesType {

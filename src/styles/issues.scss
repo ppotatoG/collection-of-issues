@@ -1,3 +1,5 @@
+@import "utils";
+
 .issues {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -5,10 +7,6 @@
     margin: 4vw;
     border-radius: 20px;
     &__item {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 20px;
         position: relative;
         padding: 20px;
         transition: box-shadow, transform .2s;
@@ -16,6 +14,9 @@
         border-radius: 5px;
         overflow-x: auto;
         box-sizing: border-box;
+        @include flex($j: space-between);
+        flex-direction: column;
+        gap: 20px;
 
         &:hover {
             box-shadow: 0 0 10px 2px #e2e2e2;
@@ -23,23 +24,30 @@
         }
 
         .repo_info {
-            margin: 10px 0;
-            display: flex;
+            width: 100%;
+            @include flex($a: flex-start);
             flex-direction: column;
             gap: 10px;
-            h3 {
-                font-size: 1.4em;
-                line-height: 1;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+            .title {
+                width: 100%;
+                box-sizing: border-box;
+                .markdown-body {
+                    overflow: hidden;
+                    line-height: 1;
+                    white-space: nowrap;
+                }
             }
-            .markdown-body {
+            .markdown-body.body {
+                padding: 5px;
+                width: 100%;
+                box-sizing: border-box;
                 height: 200px;
                 overflow: auto;
-                padding-right: 8px;
+                background: #f4f4f4;
+                border-radius: 5px;
                 &::-webkit-scrollbar {
                     width: 5px;
+                    border: transparent 2px solid;
                 }
                 &::-webkit-scrollbar-thumb {
                     background-color: #2f3542;
@@ -51,27 +59,42 @@
                     border-radius: 10px;
                 }
             }
+
         }
 
         .user_info {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
+            position: relative;
+            width: 100%;
+            @include flex($j: space-between, $a: flex-end);
             gap: 10px;
             div {
-                display: flex;
-                align-items: center;
+                @include flex($j: flex-start);
                 gap: 5px;
                 figure {
-                    display: flex;
+                    @include flex;
                     gap: 1vw;
                     width: 30px;
                     border-radius: 50%;
                     overflow: hidden;
                 }
+                p {
+                    overflow: hidden;
+                    line-height: 1;
+                    white-space: nowrap;
+                    width: calc(100% - 30px);
+                }
+                a {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    text-indent: -99999px;
+                }
             }
             .comments {
-                display: flex;
+                @include size(30px, auto);
+                @include flex;
                 gap: 5px;
                 box-sizing: border-box;
                 svg {
@@ -82,12 +105,7 @@
         }
 
         & > a {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            text-indent: -99999px;
+
         }
     }
 

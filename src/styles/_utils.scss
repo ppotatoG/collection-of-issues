@@ -1,0 +1,13 @@
+$point-color: #19ce60;
+
+@mixin flex($j : center, $a : center, $g : 0) {
+    display: flex;
+    justify-content: $j;
+    align-items: $a;
+    gap: $g;
+}
+
+@mixin size($w, $h) {
+    width: $w;
+    height: $h;
+}
