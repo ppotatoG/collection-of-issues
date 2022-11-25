@@ -31,9 +31,9 @@
             .title {
                 width: 100%;
                 box-sizing: border-box;
-                .markdown-body {
+                .markdown-body > p {
                     overflow: hidden;
-                    line-height: 1;
+                    text-overflow: ellipsis;
                     white-space: nowrap;
                 }
             }

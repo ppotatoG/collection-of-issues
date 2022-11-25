@@ -58,6 +58,7 @@ const contents = ({repos, setRepos, issues}: ContentsPropType) => {
                             <div className="repo_info">
                                 <div className="title">
                                     <p><b>{repoName} #{number}</b></p>
+                                    {/*{title}*/}
                                     <ReactMarkdown
                                         className="markdown-body"
                                         children={title}
@@ -79,7 +80,7 @@ const contents = ({repos, setRepos, issues}: ContentsPropType) => {
                                 <div>
                                     <figure><img src={avatar_url} alt={`${login} 프로필 이미지`}/></figure>
                                     <p>by <b>{login}</b></p>
-                                    {/*<a href={userHtmlUrl} target="_blank" rel="noopener noreferrer">레포지토리 바로가기</a>*/}
+                                    <a href={userHtmlUrl} target="_blank" rel="noopener noreferrer">레포지토리 바로가기</a>
                                 </div>
                                 {
                                     comments !== 0 &&
@@ -87,7 +88,7 @@ const contents = ({repos, setRepos, issues}: ContentsPropType) => {
                                 }
                             </div>
 
-                            {/*<a href={val.html_url} target="_blank" rel="noopener noreferrer">레포지토리 바로가기</a>*/}
+                            <a href={val.html_url} target="_blank" rel="noopener noreferrer">레포지토리 바로가기</a>
                         </li>
                     )
                 })
