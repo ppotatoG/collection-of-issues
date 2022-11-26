@@ -12,14 +12,50 @@
     .inner  {
         max-width: 1000px;
         height: 8vh;
+        position: relative;
         @include flex($j: space-between);
-        h1 a {
-            font-size: 1.6em;
+        h1 {
+            flex: 0 0 10vw;
+            a {
+                font-size: 1.6em;
+            }
         }
         ul {
-            @include flex($g: 2vw);
-            a {
+            flex: 0 0 10vw;
+            @include flex($j: space-between, $g: 2vw);
+            li > * {
                 font-size: 1.4em;
+            }
+        }
+
+        form {
+            $gap: 6vw;
+            position: absolute;
+            top: 1vw;
+            left: 10vw + $gap;
+            border: solid 1px #ddd;
+            box-sizing: border-box;
+            @include size(calc(100% - 20vw - ($gap * 2)), calc(100% - 2vw));
+            button {
+                position: absolute;
+                top: 0;
+                left: 2vw;
+                display: flex;
+                height: 100%;
+                align-items: center;
+                color: #454f5d;
+                &:last-child {
+                    left: auto;
+                    right: 2vw;
+                }
+            }
+            label {
+                padding: 0 6vw;
+                box-sizing: border-box;
+                @include size(100%, 100%);
+                input {
+                    @include size(100%, 100%);
+                }
             }
         }
     }

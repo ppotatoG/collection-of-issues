@@ -1,21 +1,51 @@
-import { VscNewFolder } from "react-icons/vsc";
-import { HiUserCircle } from "react-icons/hi";
-import React from "react";
+import React, {useState} from "react";
+
+import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { GrLinkPrevious, GrClose } from "react-icons/gr";
 
 import 'styles/header.scss';
 
-const header = () => {
+const Header = () : JSX.Element => {
+    const [isSearching, setIsSearching] = useState<boolean>(false);
+    const [searchText, setSearchText] = useState<string>('');
+
+    const closeSearching = () => {
+        setIsSearching(prev => !prev);
+        setSearchText('');
+    };
+
+    const delSearchText = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        setSearchText('');
+    };
+
     return (
         <header className="header">
             <div className="inner">
-                <h1><a href="./" rel="noopener noreferrer">collection of issues</a></h1>
+                <h1><a href="./" rel="noopener noreferrer">COI</a></h1>
                 <ul>
-                    <li><a href="./search" rel="noopener noreferrer"><HiUserCircle /></a></li>
-                    <li><a href="./search" rel="noopener noreferrer"><VscNewFolder /></a></li>
+                    <li><button onClick={closeSearching}><FaSearch /></button></li>
+                    <li><a href="./search" rel="noopener noreferrer"><FaUserCircle /></a></li>
                 </ul>
+                {
+                    isSearching &&
+                    <form action="">
+                        <button onClick={closeSearching}><GrLinkPrevious/></button>
+                        <label htmlFor="searchText">
+                            <input
+                                id="searchText"
+                                type="text"
+                                placeholder="레포지토리 이름으로 검색"
+                                value={searchText}
+                                onChange={e => setSearchText(e.target.value)}
+                            />
+                        </label>
+                        <button onClick={e => delSearchText(e)}><GrClose/></button>
+                    </form>
+                }
             </div>
         </header>
     )
 }
 
-export default header;
+export default Header;
