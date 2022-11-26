@@ -11,6 +11,8 @@ import 'styles/issues.scss';
 
 const Issues = () => {
     const [issues, setIssues] = useState<IssuesType[]>([]);
+
+    // TODO: []이 아닌 undefined 가 들어오는 issue
     const [repos, setRepos] = useState<string[]>(JSON.parse(localStorage.getItem('viewIssue') || '[]'));
     const [loading, setLoading] = useState<boolean>(false);
 
