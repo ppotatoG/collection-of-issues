@@ -14,7 +14,7 @@ const blankContent = ({blankType} : BlankProps ) : JSX.Element => {
                 flexDirection: 'column',
                 gap: '10px',
                 width: '100%',
-                height: '100vh',
+                height: '92vh',
                 fontSize: '30px'
             }}
         >

@@ -13,6 +13,7 @@ import {
 import Index from 'components/Search';
 import Issues from 'components/Issue';
 import NotFound from 'components/NotFound';
+import Header from 'components/header';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -20,6 +21,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <BrowserRouter>
+        <Header />
         <Routes>
             <Route path="/" element={<Issues />} />
             <Route path="issues" element={<Issues />} />
