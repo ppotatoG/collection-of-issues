@@ -10,6 +10,8 @@ import {
     Route,
 } from "react-router-dom";
 
+import { RecoilRoot } from 'recoil';
+
 import Index from 'components/Search';
 import Issues from 'components/Issue';
 import NotFound from 'components/NotFound';
@@ -20,15 +22,17 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-    <BrowserRouter>
-        <Header />
-        <Routes>
-            <Route path="/" element={<Issues />} />
-            <Route path="issues" element={<Issues />} />
-            <Route path="search" element={<Index />} />
-            <Route path={"*"} element={<NotFound />}/>
-        </Routes>
-    </BrowserRouter>
+    <RecoilRoot>
+        <BrowserRouter>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Issues />} />
+                <Route path="issues" element={<Issues />} />
+                <Route path="search" element={<Index />} />
+                <Route path={"*"} element={<NotFound />}/>
+            </Routes>
+        </BrowserRouter>
+    </RecoilRoot>
 );
 
 reportWebVitals();

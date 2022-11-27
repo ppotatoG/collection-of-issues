@@ -5,7 +5,11 @@ import { GrLinkPrevious, GrClose } from "react-icons/gr";
 
 import 'styles/header.scss';
 
+import CharacterCounter from 'store';
+
 const Header = () : JSX.Element => {
+    return <CharacterCounter />
+
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [searchText, setSearchText] = useState<string>('');
 
