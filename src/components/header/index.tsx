@@ -5,22 +5,21 @@ import { GrLinkPrevious, GrClose } from "react-icons/gr";
 
 import 'styles/header.scss';
 
-import CharacterCounter from 'store';
+import { useRecoilState } from 'recoil';
+import { searchText } from 'store';
 
 const Header = () : JSX.Element => {
-    return <CharacterCounter />
-
+    const [inputText, setInputText] = useRecoilState<string>(searchText);
     const [isSearching, setIsSearching] = useState<boolean>(false);
-    const [searchText, setSearchText] = useState<string>('');
 
     const closeSearching = () => {
         setIsSearching(prev => !prev);
-        setSearchText('');
+        setInputText('');
     };
 
     const delSearchText = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        setSearchText('');
+        setInputText('');
     };
 
     return (
@@ -35,13 +34,13 @@ const Header = () : JSX.Element => {
                     isSearching &&
                     <form action="">
                         <button onClick={closeSearching}><GrLinkPrevious/></button>
-                        <label htmlFor="searchText">
+                        <label htmlFor="inputText">
                             <input
-                                id="searchText"
+                                id="inputText"
                                 type="text"
                                 placeholder="레포지토리 이름으로 검색"
-                                value={searchText}
-                                onChange={e => setSearchText(e.target.value)}
+                                value={inputText}
+                                onChange={e => setInputText(e.target.value)}
                             />
                         </label>
                         <button onClick={e => delSearchText(e)}><GrClose/></button>
