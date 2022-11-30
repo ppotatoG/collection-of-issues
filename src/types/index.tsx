@@ -6,6 +6,7 @@ export interface IssuesType {
     created_at: string;
     body: string;
     user: UserInfoType;
+    id: number;
 }
 
 interface UserInfoType {

@@ -5,14 +5,16 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(4px);
     padding: 0 2vw;
     box-sizing: border-box;
+    z-index: 1;
     .inner  {
         max-width: 1000px;
-        height: 8vh;
+        height: 60px;
         position: relative;
+        margin: 0 auto;
         @include flex($j: space-between);
         h1 {
             flex: 0 0 10vw;
@@ -21,36 +23,40 @@
             }
         }
         ul {
-            flex: 0 0 10vw;
-            @include flex($j: space-between, $g: 2vw);
+            @include flex($j: space-between, $g: 20px);
             li > * {
                 font-size: 1.4em;
             }
         }
 
         form {
-            $gap: 6vw;
+            $gap: 20px;
             position: absolute;
-            top: 1vw;
-            left: 10vw + $gap;
+            top: 10px;
+            left: calc(10vw + $gap);
             border: solid 1px #ddd;
             box-sizing: border-box;
-            @include size(calc(100% - 20vw - ($gap * 2)), calc(100% - 2vw));
+            background: #fff;
+            @include size(calc(100% - 20vw - ($gap * 2)), calc(100% - 20px));
+            @include xs {
+                left: 0;
+                width: 100%;
+            }
             button {
                 position: absolute;
                 top: 0;
-                left: 2vw;
+                left: 10px;
                 display: flex;
                 height: 100%;
                 align-items: center;
                 color: #454f5d;
                 &:last-child {
                     left: auto;
-                    right: 2vw;
+                    right: 10px;
                 }
             }
             label {
-                padding: 0 6vw;
+                padding: 0 40px;
                 box-sizing: border-box;
                 @include size(100%, 100%);
                 input {

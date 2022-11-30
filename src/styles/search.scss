@@ -1,16 +1,13 @@
+@import "utils";
+
 .search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     width: 100%;
     max-width: 1000px;
     margin:0 auto;
     min-height: 92vh;
+    flex-direction: column;
+    @include flex;
     form {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         width: 80%;
         max-width: 1000px;
         margin:0 auto 30px;
@@ -26,7 +23,7 @@
             color: #ddd;
             radius: 30px;
         }
-
+        @include flex($j: space-between);
         &:hover,
         &:active,
         &:focus {
@@ -47,11 +44,8 @@
     .selectBox {
         position: relative;
         button {
-            display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px; 
+            @include flex($g: 5px);
             * {
                 display: block;
             }

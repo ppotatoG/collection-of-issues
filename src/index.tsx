@@ -27,8 +27,6 @@ root.render(
             <Header />
             <Routes>
                 <Route path="/" element={<Issues />} />
-                <Route path="issues" element={<Issues />} />
-                <Route path="search" element={<Index />} />
                 <Route path={"*"} element={<NotFound />}/>
             </Routes>
         </BrowserRouter>

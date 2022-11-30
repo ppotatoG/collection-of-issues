@@ -47,26 +47,26 @@ const Index = () => {
         <>
             <Loading isLoading={loading}/>
             <div className="search">
-                <form onSubmit={SearchRepos} >
-                    <label htmlFor="searchText">
-                        <input
-                            id="searchText"
-                            type="text"
-                            placeholder="레포지토리 이름으로 검색"
-                            value={searchText}
-                            onChange={e => setSearchText(e.target.value)}
-                        />
-                    </label>
-                    <SelectBox
-                        sortView={sortView}
-                        setSortView={setSortView}
-                        sortSelectValue={sortSelectValue}
-                        setSortSelectValue={setSortSelectValue}
-                        searchText={searchText}
-                        fetchRepos={fetchRepos}
-                    />
-                    <button><FaSearch /></button>
-                </form>
+                {/*<form onSubmit={SearchRepos} >*/}
+                {/*    <label htmlFor="searchText">*/}
+                {/*        <input*/}
+                {/*            id="searchText"*/}
+                {/*            type="text"*/}
+                {/*            placeholder="레포지토리 이름으로 검색"*/}
+                {/*            value={searchText}*/}
+                {/*            onChange={e => setSearchText(e.target.value)}*/}
+                {/*        />*/}
+                {/*    </label>*/}
+                {/*    <SelectBox*/}
+                {/*        sortView={sortView}*/}
+                {/*        setSortView={setSortView}*/}
+                {/*        sortSelectValue={sortSelectValue}*/}
+                {/*        setSortSelectValue={setSortSelectValue}*/}
+                {/*        searchText={searchText}*/}
+                {/*        fetchRepos={fetchRepos}*/}
+                {/*    />*/}
+                {/*    <button><FaSearch /></button>*/}
+                {/*</form>*/}
                 {
                     repos.length !== 0 &&
                     <RepoCards

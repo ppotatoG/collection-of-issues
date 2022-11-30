@@ -42,31 +42,30 @@ const contents = ({repos, setRepos, issues}: ContentsPropType) => {
             {/*</li>*/}
             {
                 issues.map((val: IssuesType) => {
-                    console.log(val)
-                    const {title, number, comments, body, created_at, html_url} = val;
-                    const {node_id, avatar_url, login} = val.user;
+                    const {id, title, number, comments, body, created_at, html_url} = val;
+                    const {avatar_url, login} = val.user;
 
                     const userHtmlUrl = val.user.html_url;
                     const created = new Intl.DateTimeFormat('ko').format(new Date(created_at));
                     const [, repoName] = html_url.split('https://github.com/')[1].split('/');
-                        console.log()
+
                     return (
                         <li
                             className="issues__item"
-                            key={node_id}
+                            key={id}
                         >
                             <div className="repo_info">
                                 <div className="title">
-                                    <p><b>{repoName} #{number}</b></p>
-                                    {/*{title}*/}
+                                    <p>{repoName} #{number}</p>
                                     <ReactMarkdown
                                         className="markdown-body"
                                         children={title}
-                                       remarkPlugins={[remarkGfm]}
+                                        remarkPlugins={[remarkGfm]}
                                     />
                                 </div>
+                                <a href={val.html_url} target="_blank" rel="noopener noreferrer">이슈 바로가기</a>
                                 {
-                                    body &&
+                                    body.replace(/ /, '') !== '' &&
                                     <ReactMarkdown
                                         className="markdown-body body"
                                         children={body}
@@ -79,7 +78,8 @@ const contents = ({repos, setRepos, issues}: ContentsPropType) => {
                             <div className="user_info">
                                 <div>
                                     <figure><img src={avatar_url} alt={`${login} 프로필 이미지`}/></figure>
-                                    <p>by <b>{login}</b></p>
+                                    <p>by</p>
+                                    <b>{login}</b>
                                     <a href={userHtmlUrl} target="_blank" rel="noopener noreferrer">레포지토리 바로가기</a>
                                 </div>
                                 {
@@ -87,8 +87,6 @@ const contents = ({repos, setRepos, issues}: ContentsPropType) => {
                                     <p className="comments"><FaRegCommentAlt/>{comments}</p>
                                 }
                             </div>
-
-                            <a href={val.html_url} target="_blank" rel="noopener noreferrer">레포지토리 바로가기</a>
                         </li>
                     )
                 })
