@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Loading from 'components/loading';
 
-import { RepositoriesType } from 'types';
-import { FaSearch, FaLink, FaPlus, FaSortDown } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 import 'styles/search.scss';
+
+import RepoCards from "./repoCards";
+import SelectBox from './selectBox';
 
 const Index = () => {
     const [searchText, setSearchText] = useState<string>('');
@@ -38,86 +40,6 @@ const Index = () => {
             }).then(() => setLoading(false));
     };
 
-    const addRepo = (url : string) => {
-        if(viewIssueArr.length >= 4) {
-            alert('등록 개수는 최대 4개로 제한');
-            return false;
-        }
-
-        if ((viewIssueArr.find(v => v === url))) {
-            alert('이미 등록된 레포지토리');
-            return false;
-        }
-
-        viewIssueArr.push(url);
-        localStorage.setItem('viewIssue', JSON.stringify(viewIssueArr));
-
-        alert('추가 완료');
-    };
-
-    const selectSort = ( selectedValue : string ) => {
-        setSortSelectValue(selectedValue)
-        setSortView(false);
-        if (searchText) fetchRepos(selectedValue);
-    }
-
-    const SelectBox = () : JSX.Element => {
-        const sortValues : string[] = [ 'default', 'stars', 'forks', 'updated' ];
-
-        return (
-            <div className="selectBox">
-                <button
-                    type="button" 
-                    onClick={() => setSortView(!sortView)}
-                    >
-                        {sortSelectValue && <span>{sortSelectValue}</span>}
-                        <FaSortDown/>
-                    </button>
-                <ul>
-                    {
-                    sortView &&
-                    sortValues.map((curValue : string, idx : number) => {
-                        return (
-                            <li
-                                key={idx}
-                                value={curValue}
-                                onClick={() => selectSort(curValue)}
-                            >
-                                {curValue}
-                            </li>
-                        )
-                    })}
-                </ul>
-            </div>
-        )
-    }
-
-    const ViewRepos = () : JSX.Element => {
-        return (
-            <ul className="repo">
-                {
-                    repos.map((val : RepositoriesType, idx: number) => {
-                        const update = new Intl.DateTimeFormat('ko').format(new Date(val.updated_at)).slice(0, -1);
-                        return (
-                            <li className="repo__item" key={idx}>
-                                <div className="inner__text">
-                                    <h3>{val.name}</h3>
-                                    <p>{val.description}</p>
-                                    <p>updated_at {update}</p>
-                                </div>
-                                <div className="inner__status">
-                                    {val.open_issues !== 0 && <p>issues : {val.open_issues}</p>}
-                                    <button onClick={() => addRepo(val.url)}><FaPlus /></button>
-                                    <a href={val.html_url} target="_blank" rel="noopener noreferrer"><FaLink /></a>
-                                </div>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
-        )
-    }
-
     useEffect(() => {
     }, [sortSelectValue, repos])
 
@@ -135,10 +57,23 @@ const Index = () => {
                             onChange={e => setSearchText(e.target.value)}
                         />
                     </label>
-                    <SelectBox />
+                    <SelectBox
+                        sortView={sortView}
+                        setSortView={setSortView}
+                        sortSelectValue={sortSelectValue}
+                        setSortSelectValue={setSortSelectValue}
+                        searchText={searchText}
+                        fetchRepos={fetchRepos}
+                    />
                     <button><FaSearch /></button>
                 </form>
-                {repos.length !== 0 && <ViewRepos />}
+                {
+                    repos.length !== 0 &&
+                    <RepoCards
+                        repos={repos}
+                        viewIssueArr={viewIssueArr}
+                    />
+                }
             </div>
         </>
     );
