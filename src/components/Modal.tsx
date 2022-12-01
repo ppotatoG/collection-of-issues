@@ -1,17 +1,28 @@
 import Modal from 'react-modal';
+import {Dispatch, SetStateAction} from "react";
 
-const customModal = ({text, modalIsOpen, setIsOpen} : any) => {
+interface CustomModalProp {
+    text: string
+    modalIsOpen: boolean
+    setModalIsOpen: Dispatch<SetStateAction<boolean>>
+}
+
+const CustomModal = ({
+    text,
+    modalIsOpen,
+    setModalIsOpen
+}: CustomModalProp) : JSX.Element => {
     return (
         <div>
             <Modal
                 isOpen={modalIsOpen}
                 ariaHideApp={false}
-                onRequestClose={() => setIsOpen(false)}
+                onRequestClose={() => setModalIsOpen(false)}
                 style={customStyles}
             >
                 <p>{text}</p>
                 <div>
-                    <button onClick={() => setIsOpen(false)}>확인 </button>
+                    <button onClick={() => setModalIsOpen(false)}>확인</button>
                 </div>
             </Modal>
         </div>
@@ -27,7 +38,8 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
+        zIndex: 9
     },
 };
 
-export default customModal;
+export default CustomModal;

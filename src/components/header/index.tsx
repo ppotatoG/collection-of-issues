@@ -4,12 +4,15 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaSearch, FaUserCircle } from "react-icons/fa";
 import { GrLinkPrevious, GrClose } from "react-icons/gr";
 
+import CustomModal from 'components/Modal';
+
 import 'styles/header.scss';
 
 const Header = () : JSX.Element => {
     const navigate = useNavigate();
     const [searchText, setSearchText] = useState<string>('');
     const [isSearching, setIsSearching] = useState<boolean>(false);
+    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
     const closeSearching = () => {
         setIsSearching(prev => !prev);
@@ -24,7 +27,7 @@ const Header = () : JSX.Element => {
         e.preventDefault();
 
         if (!searchText) {
-            alert('not inputText');
+            setModalIsOpen(prev => !prev);
             return false;
         }
 
@@ -56,6 +59,14 @@ const Header = () : JSX.Element => {
                     </form>
                 }
             </div>
+            {
+                modalIsOpen &&
+                <CustomModal
+                    text={'검색어를 입력해주세요 :('}
+                    modalIsOpen={modalIsOpen}
+                    setModalIsOpen={setModalIsOpen}
+                />
+            }
         </header>
     )
 }
