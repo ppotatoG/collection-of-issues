@@ -14,13 +14,23 @@ const Header = () : JSX.Element => {
 
     const closeSearching = () => {
         setIsSearching(prev => !prev);
-        setInputText('');
     };
 
     const delSearchText = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         setInputText('');
     };
+
+    const goToSearch = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!inputText) {
+            alert('not inputText');
+            return false;
+        }
+
+        window.location.href = `/search?q=${inputText}`;
+    }
 
     return (
         <header className="header">
@@ -32,8 +42,8 @@ const Header = () : JSX.Element => {
                 </ul>
                 {
                     isSearching &&
-                    <form action="">
-                        <button onClick={closeSearching}><GrLinkPrevious/></button>
+                    <form onSubmit={goToSearch}>
+                        <button type="button" onClick={closeSearching}><GrLinkPrevious/></button>
                         <label htmlFor="inputText">
                             <input
                                 id="inputText"
@@ -43,7 +53,7 @@ const Header = () : JSX.Element => {
                                 onChange={e => setInputText(e.target.value)}
                             />
                         </label>
-                        <button onClick={e => delSearchText(e)}><GrClose/></button>
+                        <button type="button" onClick={e => delSearchText(e)}><GrClose/></button>
                     </form>
                 }
             </div>

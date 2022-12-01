@@ -12,7 +12,7 @@ import {
 
 import { RecoilRoot } from 'recoil';
 
-import Index from 'components/Search';
+import Search from 'components/Search';
 import Issues from 'components/Issue';
 import NotFound from 'components/NotFound';
 import Header from 'components/header';
@@ -27,6 +27,7 @@ root.render(
             <Header />
             <Routes>
                 <Route path="/" element={<Issues />} />
+                <Route path='/search' element={<Search />} />
                 <Route path={"*"} element={<NotFound />}/>
             </Routes>
         </BrowserRouter>

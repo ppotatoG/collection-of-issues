@@ -1,82 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import axios from 'axios';
 import Loading from 'components/loading';
-
-import { FaSearch } from "react-icons/fa";
 
 import 'styles/search.scss';
 
 import RepoCards from "./repoCards";
-import SelectBox from './selectBox';
+import {useSearchParams} from "react-router-dom";
 
-const Index = () => {
-    const [searchText, setSearchText] = useState<string>('');
+const Search = () => {
+    const [searchParams, ] = useSearchParams();
     const [repos, setRepos] = useState<[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [sortView, setSortView] = useState<boolean>(false);
-    const [sortSelectValue, setSortSelectValue] = useState<string>('');
 
     const viewIssueArr : string[] = JSON.parse(localStorage.getItem('viewIssue') || '[]');
 
-    const SearchRepos = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        fetchRepos();
-        window.scrollTo(0, 0);
-    };
+    const qString = searchParams.get('q');
 
-    const fetchRepos = (curValue? : string) => {
-        if (!searchText) return alert('레포지토리명을 입력해주세요');
+    const fetchRepos = useCallback(async () => {
+        try {
+            if (!qString) return false;
+            setLoading(true);
 
-        setLoading(true);
-        setSortView(false);
+            const res = await axios.get(`https://api.github.com/search/repositories?q=${qString}`);
+            setRepos(res.data.items);
 
-        const sort = curValue && curValue !== 'default' ? `&sort=${curValue}` : '';
-
-        axios.get(`https://api.github.com/search/repositories?q=${searchText}${sort}`)
-            .then((res) => {
-                setRepos(res.data.items);
-            }).catch((error) => {
-                console.log(error);
-            }).then(() => setLoading(false));
-    };
+        } catch (e) {
+            console.error(`${e} fetchIssues CALL FAILURE`);
+        } finally {
+            setLoading(false);
+        }
+    }, [qString]);
 
     useEffect(() => {
-    }, [sortSelectValue, repos])
+        fetchRepos().then();
+    }, [fetchRepos, qString])
 
     return (
         <>
             <Loading isLoading={loading}/>
-            <div className="search">
-                {/*<form onSubmit={SearchRepos} >*/}
-                {/*    <label htmlFor="searchText">*/}
-                {/*        <input*/}
-                {/*            id="searchText"*/}
-                {/*            type="text"*/}
-                {/*            placeholder="레포지토리 이름으로 검색"*/}
-                {/*            value={searchText}*/}
-                {/*            onChange={e => setSearchText(e.target.value)}*/}
-                {/*        />*/}
-                {/*    </label>*/}
-                {/*    <SelectBox*/}
-                {/*        sortView={sortView}*/}
-                {/*        setSortView={setSortView}*/}
-                {/*        sortSelectValue={sortSelectValue}*/}
-                {/*        setSortSelectValue={setSortSelectValue}*/}
-                {/*        searchText={searchText}*/}
-                {/*        fetchRepos={fetchRepos}*/}
-                {/*    />*/}
-                {/*    <button><FaSearch /></button>*/}
-                {/*</form>*/}
-                {
-                    repos.length !== 0 &&
+            {
+                repos.length !== 0 &&
+                <div className="search">
                     <RepoCards
                         repos={repos}
                         viewIssueArr={viewIssueArr}
                     />
-                }
-            </div>
+                </div>
+            }
         </>
     );
 }
 
-export default Index;
+export default Search;
