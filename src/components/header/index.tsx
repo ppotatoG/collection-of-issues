@@ -1,15 +1,14 @@
 import React, {useState} from "react";
+import { useNavigate, Link } from 'react-router-dom';
 
 import { FaSearch, FaUserCircle } from "react-icons/fa";
 import { GrLinkPrevious, GrClose } from "react-icons/gr";
 
 import 'styles/header.scss';
 
-import { useRecoilState } from 'recoil';
-import { searchText } from 'store';
-
 const Header = () : JSX.Element => {
-    const [inputText, setInputText] = useRecoilState<string>(searchText);
+    const navigate = useNavigate();
+    const [searchText, setSearchText] = useState<string>('');
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
     const closeSearching = () => {
@@ -18,24 +17,24 @@ const Header = () : JSX.Element => {
 
     const delSearchText = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        setInputText('');
+        setSearchText('');
     };
 
     const goToSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!inputText) {
+        if (!searchText) {
             alert('not inputText');
             return false;
         }
 
-        window.location.href = `/search?q=${inputText}`;
+        navigate(`/search?q=${searchText}`);
     }
 
     return (
         <header className="header">
             <div className="inner">
-                <h1><a href="./" rel="noopener noreferrer">COI</a></h1>
+                <h1><Link to="./">COI</Link></h1>
                 <ul>
                     <li><button onClick={closeSearching}><FaSearch /></button></li>
                     <li><a href="./search" rel="noopener noreferrer"><FaUserCircle /></a></li>
@@ -49,8 +48,8 @@ const Header = () : JSX.Element => {
                                 id="inputText"
                                 type="text"
                                 placeholder="레포지토리 이름으로 검색"
-                                value={inputText}
-                                onChange={e => setInputText(e.target.value)}
+                                value={searchText}
+                                onChange={e => setSearchText(e.target.value)}
                             />
                         </label>
                         <button type="button" onClick={e => delSearchText(e)}><GrClose/></button>
