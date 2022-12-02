@@ -9,10 +9,8 @@ import {useSearchParams} from "react-router-dom";
 
 const Search = () => {
     const [searchParams, ] = useSearchParams();
-    const [repos, setRepos] = useState<[]>([]);
+    const [searchResult, setSearchResult] = useState<[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-
-    const viewIssueArr : string[] = JSON.parse(localStorage.getItem('viewIssue') || '[]');
 
     const qString = searchParams.get('q');
 
@@ -20,10 +18,8 @@ const Search = () => {
         try {
             if (!qString) return false;
             setLoading(true);
-
             const res = await axios.get(`https://api.github.com/search/repositories?q=${qString}`);
-            setRepos(res.data.items);
-
+            setSearchResult(res.data.items);
         } catch (e) {
             console.error(`${e} fetchIssues CALL FAILURE`);
         } finally {
@@ -39,12 +35,9 @@ const Search = () => {
         <>
             <Loading isLoading={loading}/>
             {
-                repos.length !== 0 &&
+                searchResult.length !== 0 &&
                 <div className="search">
-                    <RepoCards
-                        repos={repos}
-                        viewIssueArr={viewIssueArr}
-                    />
+                    <RepoCards searchResult={searchResult}/>
                 </div>
             }
         </>

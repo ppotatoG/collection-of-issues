@@ -1,34 +1,33 @@
-import {RepositoriesType} from "../../types";
-import {FaLink, FaPlus} from "react-icons/fa";
 import React from "react";
 
-interface RepoCardType {
-    repos : RepositoriesType[]
-    viewIssueArr: string[]
-}
+import { FaLink, FaPlus } from "react-icons/fa";
 
-const RepoCards = ({repos, viewIssueArr} : RepoCardType) => {
+import { RepositoriesType } from "types";
+import { useRecoilState } from "recoil";
+import { addedRepository } from "store/addedRepository";
+
+const RepoCards = ({ searchResult } : any ) => {
+    const [repos, setRepos] = useRecoilState<string[]>(addedRepository);
+
     const addRepo = (url : string) => {
-        if(viewIssueArr.length >= 4) {
+        if(repos.length >= 4) {
             alert('등록 개수는 최대 4개로 제한');
             return false;
         }
 
-        if ((viewIssueArr.find((v : string) => v === url))) {
+        if ((repos.find((v : string) => v === url))) {
             alert('이미 등록된 레포지토리');
             return false;
         }
 
-        viewIssueArr.push(url);
-        localStorage.setItem('viewIssue', JSON.stringify(viewIssueArr));
-
+        setRepos(prev => [...prev, url]);
         alert('추가 완료');
     };
 
     return (
         <ul className="repo">
             {
-                repos.map((val : RepositoriesType, idx: number) => {
+                searchResult.map((val : RepositoriesType, idx: number) => {
                     const update = new Intl.DateTimeFormat('ko').format(new Date(val.updated_at)).slice(0, -1);
                     return (
                         <li className="repo__item" key={idx}>

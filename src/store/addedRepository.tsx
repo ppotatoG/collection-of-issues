@@ -1,8 +1,8 @@
 import { atom } from "recoil";
-import { getRepository } from "store/getRepository";
+import { setRepository } from "store/setRepository";
 
 export const addedRepository = atom<string[]>({
     key: "addedRepository",
     default: [],
-    effects: [getRepository("user_list")]
+    effects: [setRepository("addedRepository")]
 })

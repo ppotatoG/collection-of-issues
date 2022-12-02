@@ -70,6 +70,14 @@ const repos = JSON.parse(localStorage.getItem('viewIssue') || '{}');
 - `repositories` 검색 시 `정렬('default', 'stars', 'forks', 'updated')`
 - 추가한 repositories에 대한 `issues` 모음
 
+## recoil 정리
+
+사용자가 추가한 레포 `addedRepository`
+
+`addedRepository`를 세팅해주는 `setRedRepository`
+
+`addedRepository`를 통해 `issue`를 가져오는 `fetchIssues()`
+
 --- 
 
 ## async try

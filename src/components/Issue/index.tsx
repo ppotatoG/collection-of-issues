@@ -14,17 +14,8 @@ import { addedRepository } from 'store/addedRepository';
 
 const Issues = () => {
     const [repos, setRepos] = useRecoilState<string[]>(addedRepository);
-    useEffect(() => {
-        setRepos(['hhh', 'hgvj']);
-    }, [setRepos]);
-
-    console.log(setRepos)
-    console.log(localStorage.getItem('user_list'))
-
     const [issues, setIssues] = useState<IssuesType[]>([]);
 
-    // TODO: []이 아닌 undefined 가 들어오는 issue
-    // const [repos, setRepos] = useState<string[]>(JSON.parse(localStorage.getItem('viewIssue') || '[]'));
     const [loading, setLoading] = useState<boolean>(false);
 
     const fetchIssues = useCallback(async () => {
@@ -43,7 +34,6 @@ const Issues = () => {
     }, [repos]);
 
     useEffect(() => {
-        localStorage.setItem('viewIssue', JSON.stringify(repos));
         fetchIssues().then();
     }, [fetchIssues, repos]);
 
