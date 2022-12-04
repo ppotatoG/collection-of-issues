@@ -14,32 +14,8 @@ interface ContentsPropType {
 }
 
 const contents = ({repos, setRepos, issues}: ContentsPropType) => {
-    const deleteRepo = (e: React.MouseEvent<HTMLButtonElement>, repoUrl: string) => {
-        const repoName = repoUrl.split('https://api.github.com/repos/')[1].split('/')[0];
-        e.preventDefault();
-
-        alert(`delete ${repoName}`);
-        setRepos((prev: any[]) => prev.filter((v: string) => v !== repoUrl));
-    }
-
     return (
         <ul className="issues">
-            {/*<li className="issues__item">*/}
-            {/*    {*/}
-            {/*        repos.map((repo: string, idx: number) => {*/}
-            {/*            const [userName, repoName] = repo.split('https://api.github.com/repos/')[1].split('/');*/}
-            {/*            return (*/}
-            {/*                <button*/}
-            {/*                    key={idx}*/}
-            {/*                    onClick={(e) => deleteRepo(e, repo)}*/}
-            {/*                >*/}
-            {/*                    {repoName} By.{userName}*/}
-            {/*                    <FaTimes/>*/}
-            {/*                </button>*/}
-            {/*            )*/}
-            {/*        })*/}
-            {/*    }*/}
-            {/*</li>*/}
             {
                 issues.map((val: IssuesType) => {
                     const {id, title, number, comments, body, created_at, html_url} = val;

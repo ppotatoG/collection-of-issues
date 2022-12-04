@@ -5,16 +5,20 @@ import { FaSearch, FaUserCircle } from "react-icons/fa";
 import { GrLinkPrevious, GrClose } from "react-icons/gr";
 
 import CustomModal from 'components/Modal';
+import UserState from './userState';
 
 import 'styles/header.scss';
 
 const Header = () : JSX.Element => {
     const navigate = useNavigate();
+
     const [searchText, setSearchText] = useState<string>('');
     const [isSearching, setIsSearching] = useState<boolean>(false);
-    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isStateOpen, setIsStateOpen] = useState<boolean>(false);
 
-    const closeSearching = () => {
+    const closeSearching = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
         setIsSearching(prev => !prev);
     };
 
@@ -23,11 +27,16 @@ const Header = () : JSX.Element => {
         setSearchText('');
     };
 
+    const stateToggle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        setIsStateOpen(prev => !prev);
+    };
+
     const goToSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!searchText) {
-            setModalIsOpen(prev => !prev);
+            setIsModalOpen(prev => !prev);
             return false;
         }
 
@@ -39,8 +48,11 @@ const Header = () : JSX.Element => {
             <div className="inner">
                 <h1><Link to="./">COI</Link></h1>
                 <ul>
-                    <li><button onClick={closeSearching}><FaSearch /></button></li>
-                    <li><a href="./search" rel="noopener noreferrer"><FaUserCircle /></a></li>
+                    <li><button type="button" onClick={closeSearching}><FaSearch /></button></li>
+                    <li>
+                        <button type="button" onClick={stateToggle}><FaUserCircle /></button>
+                        {isStateOpen && <UserState />}
+                    </li>
                 </ul>
                 {
                     isSearching &&
@@ -60,11 +72,11 @@ const Header = () : JSX.Element => {
                 }
             </div>
             {
-                modalIsOpen &&
+                isModalOpen &&
                 <CustomModal
                     text={'검색어를 입력해주세요 :('}
-                    modalIsOpen={modalIsOpen}
-                    setModalIsOpen={setModalIsOpen}
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
                 />
             }
         </header>

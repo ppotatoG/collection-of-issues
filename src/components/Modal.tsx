@@ -3,26 +3,26 @@ import {Dispatch, SetStateAction} from "react";
 
 interface CustomModalProp {
     text: string
-    modalIsOpen: boolean
-    setModalIsOpen: Dispatch<SetStateAction<boolean>>
+    isModalOpen: boolean
+    setIsModalOpen: Dispatch<SetStateAction<boolean>>
 }
 
 const CustomModal = ({
     text,
-    modalIsOpen,
-    setModalIsOpen
+     isModalOpen,
+     setIsModalOpen
 }: CustomModalProp) : JSX.Element => {
     return (
         <div>
             <Modal
-                isOpen={modalIsOpen}
+                isOpen={isModalOpen}
                 ariaHideApp={false}
-                onRequestClose={() => setModalIsOpen(false)}
+                onRequestClose={() => setIsModalOpen(false)}
                 style={customStyles}
             >
                 <p>{text}</p>
                 <div>
-                    <button onClick={() => setModalIsOpen(false)}>확인</button>
+                    <button onClick={() => setIsModalOpen(false)}>확인</button>
                 </div>
             </Modal>
         </div>

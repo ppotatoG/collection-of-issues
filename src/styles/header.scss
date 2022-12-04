@@ -24,8 +24,31 @@
         }
         ul {
             @include flex($j: space-between, $g: 20px);
-            li > * {
-                font-size: 1.4em;
+            li {
+                & > * {
+                    font-size: 1.4em;
+                }
+            }
+            &.user_state {
+                position: absolute;
+                top: 50px;
+                right: 0;
+                text-align: left;
+                align-items: flex-end;
+                gap: 10px;
+                flex-direction: column;
+                background: #fff;
+                padding: 10px 20px;
+                box-shadow: 0 0 4px 2px #ddd;
+                border-radius: 10px;
+                li {
+                    height: 30px;
+                    line-height: 30px;
+                    @include flex($g: 10px);
+                }
+                * {
+                    font-size: 1.6rem;
+                }
             }
         }
 
