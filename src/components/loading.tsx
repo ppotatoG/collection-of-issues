@@ -2,7 +2,7 @@ import 'styles/loading.scss';
 import React from "react";
 
 interface Props {
-    isLoading:boolean
+    isLoading: boolean
 }
 
 const Loading : React.FC<Props>= ({isLoading}) => {

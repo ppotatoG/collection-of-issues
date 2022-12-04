@@ -7,7 +7,11 @@ import remarkGfm from 'remark-gfm';
 import {FaRegCommentAlt} from "react-icons/fa";
 import {IssuesType} from "types";
 
-const contents = ({ issues }: any ) => {
+interface ContentsProp {
+    issues: IssuesType[]
+}
+
+const contents = ({ issues }: ContentsProp ) => {
     return (
         <ul className="issues">
             {

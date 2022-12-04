@@ -1,5 +1,5 @@
-import {FaSortDown} from "react-icons/fa";
-import React, {Dispatch, SetStateAction} from "react";
+import React, { Dispatch, SetStateAction } from "react";
+import { FaSortDown } from "react-icons/fa";
 
 interface SelectBoxType {
     sortView : boolean

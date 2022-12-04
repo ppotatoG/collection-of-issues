@@ -1,19 +1,19 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from 'axios';
 import Loading from 'components/loading';
 
 import BlankContent from "./blankContent";
 import Contents from "./contents";
 
-import {IssuesType} from "types";
+import { IssuesType } from "types";
 
 import 'styles/issues.scss';
 
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { addedRepository } from 'store/addedRepository';
 
 const Issues = () => {
-    const [repos, setRepos] = useRecoilState<string[]>(addedRepository);
+    const repos = useRecoilValue<string[]>(addedRepository);
     const [issues, setIssues] = useState<IssuesType[]>([]);
 
     const [loading, setLoading] = useState<boolean>(false);

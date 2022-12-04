@@ -1,11 +1,12 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import axios from 'axios';
 import Loading from 'components/loading';
 
 import 'styles/search.scss';
 
 import RepoCards from "./repoCards";
-import {useSearchParams} from "react-router-dom";
 
 const Search = () => {
     const [searchParams, ] = useSearchParams();

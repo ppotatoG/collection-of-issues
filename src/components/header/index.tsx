@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 
 import { FaSearch, FaUserCircle } from "react-icons/fa";
@@ -67,7 +67,7 @@ const Header = () : JSX.Element => {
                                 onChange={e => setSearchText(e.target.value)}
                             />
                         </label>
-                        <button type="button" onClick={e => delSearchText(e)}><GrClose/></button>
+                        <button type="button" onClick={delSearchText}><GrClose/></button>
                     </form>
                 }
             </div>

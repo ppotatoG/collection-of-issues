@@ -6,7 +6,11 @@ import { RepositoriesType } from "types";
 import { useRecoilState } from "recoil";
 import { addedRepository } from "store/addedRepository";
 
-const RepoCards = ({ searchResult } : any ) => {
+interface RepoCardsProp {
+    searchResult: RepositoriesType[]
+}
+
+const RepoCards = ({ searchResult } : RepoCardsProp ) => {
     const [repos, setRepos] = useRecoilState<string[]>(addedRepository);
 
     const addRepo = (url : string) => {

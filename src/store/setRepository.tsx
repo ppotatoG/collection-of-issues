@@ -1,5 +1,4 @@
 export const setRepository = (key : string) => ({ setSelf, onSet } : any) => {
-    console.log('setRepository')
     const savedValue = localStorage.getItem(key)
 
     if (savedValue) setSelf(JSON.parse(savedValue));

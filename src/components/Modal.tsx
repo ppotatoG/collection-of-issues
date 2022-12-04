@@ -1,5 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
 import Modal from 'react-modal';
-import {Dispatch, SetStateAction} from "react";
 
 interface CustomModalProp {
     text: string
