@@ -8,13 +8,15 @@ import CustomModal from 'components/Modal';
 import UserState from './userState';
 
 import 'styles/header.scss';
+import { useRecoilState } from "recoil";
+import { modalOpen } from "../../store/modalOpen";
 
 const Header = () : JSX.Element => {
     const navigate = useNavigate();
 
     const [searchText, setSearchText] = useState<string>('');
     const [isSearching, setIsSearching] = useState<boolean>(false);
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useRecoilState<boolean>(modalOpen);
     const [isStateOpen, setIsStateOpen] = useState<boolean>(false);
 
     const closeSearching = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -73,11 +75,7 @@ const Header = () : JSX.Element => {
             </div>
             {
                 isModalOpen &&
-                <CustomModal
-                    text={'검색어를 입력해주세요 :('}
-                    isModalOpen={isModalOpen}
-                    setIsModalOpen={setIsModalOpen}
-                />
+                <CustomModal text={'검색어를 입력해주세요 :('}/>
             }
         </header>
     )

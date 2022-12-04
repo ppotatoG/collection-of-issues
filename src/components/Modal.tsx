@@ -1,17 +1,14 @@
-import { Dispatch, SetStateAction } from "react";
 import Modal from 'react-modal';
+import { useRecoilState } from "recoil";
+import { modalOpen } from 'store/modalOpen';
 
 interface CustomModalProp {
     text: string
-    isModalOpen: boolean
-    setIsModalOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const CustomModal = ({
-    text,
-     isModalOpen,
-     setIsModalOpen
-}: CustomModalProp) : JSX.Element => {
+const CustomModal = ({text} : CustomModalProp ) : JSX.Element => {
+    const [isModalOpen, setIsModalOpen] = useRecoilState<boolean>(modalOpen);
+
     return (
         <div>
             <Modal
