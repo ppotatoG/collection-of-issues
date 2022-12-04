@@ -7,13 +7,7 @@ import remarkGfm from 'remark-gfm';
 import {FaRegCommentAlt} from "react-icons/fa";
 import {IssuesType} from "types";
 
-interface ContentsPropType {
-    repos: string[]
-    issues: IssuesType[]
-    setRepos: any
-}
-
-const contents = ({repos, setRepos, issues}: ContentsPropType) => {
+const contents = ({ issues }: any ) => {
     return (
         <ul className="issues">
             {
@@ -41,11 +35,11 @@ const contents = ({repos, setRepos, issues}: ContentsPropType) => {
                                 </div>
                                 <a href={val.html_url} target="_blank" rel="noopener noreferrer">이슈 바로가기</a>
                                 {
-                                    body.replace(/ /, '') !== '' &&
+                                    body?.replace(/ /, '') !== '' &&
                                     <ReactMarkdown
                                         className="markdown-body body"
                                         children={body}
-                                       remarkPlugins={[remarkGfm]}
+                                        remarkPlugins={[remarkGfm]}
                                     />
                                 }
                                 <p>created_at {created}</p>

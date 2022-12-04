@@ -41,11 +41,7 @@ const Issues = () => {
         if (repos.length === 0) return <BlankContent blankType={'저장된 레포지토리가 없어요'}/>
         if (issues.length === 0) return <BlankContent blankType={'저장된 레포지토리 내에 추가된 이슈가 없어요'}/>
         return (
-            <Contents
-                repos={repos}
-                setRepos={setRepos}
-                issues={issues}
-           />
+            <Contents issues={issues} />
         )
     }
 
