@@ -1,41 +1,41 @@
 $point-color: #19ce60;
 
-@mixin flex($j : center, $a : center, $g : 0) {
-    display: flex;
-    justify-content: $j;
-    align-items: $a;
-    gap: $g;
+@mixin flex($j: center, $a: center, $g: 0) {
+  display: flex;
+  justify-content: $j;
+  align-items: $a;
+  gap: $g;
 }
 
 @mixin size($w, $h) {
-    width: $w;
-    height: $h;
+  width: $w;
+  height: $h;
 }
 
 $mobile: 768px;
 $tablet: 1024px;
 $desktop: 1200px;
 
-@mixin xs{
-    @media (max-width: $mobile){
-        @content;
-    }
+@mixin xs {
+  @media (max-width: $mobile) {
+    @content;
+  }
 }
 
-@mixin sm{
-    @media (min-width: $mobile + 1) and (max-width: $tablet){
-        @content;
-    }
+@mixin sm {
+  @media (min-width: $mobile + 1) and (max-width: $tablet) {
+    @content;
+  }
 }
 
-@mixin md{
-    @media (min-width: $tablet + 1) and (max-width: $desktop){
-        @content;
-    }
+@mixin md {
+  @media (min-width: $tablet + 1) and (max-width: $desktop) {
+    @content;
+  }
 }
 
-@mixin lg{
-    @media (min-width: $desktop + 1){
-        @content;
-    }
+@mixin lg {
+  @media (min-width: $desktop + 1) {
+    @content;
+  }
 }

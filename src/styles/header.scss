@@ -1,91 +1,91 @@
-@import "utils";
+@import 'utils';
 
 .header {
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, .1);
-    backdrop-filter: blur(4px);
-    padding: 0 2vw;
-    box-sizing: border-box;
-    z-index: 1;
-    .inner  {
-        max-width: 1000px;
-        height: 60px;
-        position: relative;
-        margin: 0 auto;
-        @include flex($j: space-between);
-        h1 {
-            flex: 0 0 10vw;
-            a {
-                font-size: 1.6em;
-            }
-        }
-        ul {
-            @include flex($j: space-between, $g: 20px);
-            li {
-                & > * {
-                    font-size: 1.4em;
-                }
-            }
-            &.user_state {
-                position: absolute;
-                top: 50px;
-                right: 0;
-                text-align: left;
-                align-items: flex-end;
-                gap: 10px;
-                flex-direction: column;
-                background: #fff;
-                padding: 10px 20px;
-                box-shadow: 0 0 4px 2px #ddd;
-                border-radius: 10px;
-                li {
-                    height: 30px;
-                    line-height: 30px;
-                    @include flex($g: 10px);
-                }
-                * {
-                    font-size: 1.6rem;
-                }
-            }
-        }
-
-        form {
-            $gap: 20px;
-            position: absolute;
-            top: 10px;
-            left: calc(10vw + $gap);
-            border: solid 1px #ddd;
-            box-sizing: border-box;
-            background: #fff;
-            @include size(calc(100% - 20vw - ($gap * 2)), calc(100% - 20px));
-            @include xs {
-                left: 0;
-                width: 100%;
-            }
-            button {
-                position: absolute;
-                top: 0;
-                left: 10px;
-                display: flex;
-                height: 100%;
-                align-items: center;
-                color: #454f5d;
-                &:last-child {
-                    left: auto;
-                    right: 10px;
-                }
-            }
-            label {
-                padding: 0 40px;
-                box-sizing: border-box;
-                @include size(100%, 100%);
-                input {
-                    @include size(100%, 100%);
-                }
-            }
-        }
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  padding: 0 2vw;
+  box-sizing: border-box;
+  z-index: 1;
+  .inner {
+    max-width: 1000px;
+    height: 60px;
+    position: relative;
+    margin: 0 auto;
+    @include flex($j: space-between);
+    h1 {
+      flex: 0 0 10vw;
+      a {
+        font-size: 1.6em;
+      }
     }
+    ul {
+      @include flex($j: space-between, $g: 20px);
+      li {
+        & > * {
+          font-size: 1.4em;
+        }
+      }
+      &.user_state {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        text-align: left;
+        align-items: flex-end;
+        gap: 10px;
+        flex-direction: column;
+        background: #fff;
+        padding: 10px 20px;
+        box-shadow: 0 0 4px 2px #ddd;
+        border-radius: 10px;
+        li {
+          height: 30px;
+          line-height: 30px;
+          @include flex($g: 10px);
+        }
+        * {
+          font-size: 1.6rem;
+        }
+      }
+    }
+
+    form {
+      $gap: 20px;
+      position: absolute;
+      top: 10px;
+      left: calc(10vw + $gap);
+      border: solid 1px #ddd;
+      box-sizing: border-box;
+      background: #fff;
+      @include size(calc(100% - 20vw - ($gap * 2)), calc(100% - 20px));
+      @include xs {
+        left: 0;
+        width: 100%;
+      }
+      button {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        color: #454f5d;
+        &:last-child {
+          left: auto;
+          right: 10px;
+        }
+      }
+      label {
+        padding: 0 40px;
+        box-sizing: border-box;
+        @include size(100%, 100%);
+        input {
+          @include size(100%, 100%);
+        }
+      }
+    }
+  }
 }

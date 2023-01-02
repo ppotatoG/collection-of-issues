@@ -1,134 +1,134 @@
-@import "utils";
+@import 'utils';
 
 .issues {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-radius: 20px;
-    gap: 2vw;
-    margin: 2vw 4vw;
-    @include xs {
-        grid-template-columns: repeat(1, 1fr);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-radius: 20px;
+  gap: 2vw;
+  margin: 2vw 4vw;
+  @include xs {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @include sm {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include md {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include lg {
+    margin: 10px auto;
+    gap: 20px;
+    max-width: 1200px;
+  }
+  &__item {
+    position: relative;
+    padding: 20px;
+    transition: box-shadow, transform 0.2s;
+    box-shadow: 0 0 10px 0 #e2e2e2;
+    border-radius: 5px;
+    overflow-x: auto;
+    box-sizing: border-box;
+    flex-direction: column;
+    @include flex($j: space-between, $g: 20px);
+
+    &:hover {
+      box-shadow: 0 0 10px 2px #e2e2e2;
+      transform: translateY(-5px);
     }
-    @include sm {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @include md {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    @include lg {
-        margin: 10px auto;
-        gap: 20px;
-        max-width: 1200px;
-    }
-    &__item {
-        position: relative;
-        padding: 20px;
-        transition: box-shadow, transform .2s;
-        box-shadow: 0 0 10px 0 #e2e2e2;
-        border-radius: 5px;
-        overflow-x: auto;
+
+    .repo_info {
+      width: 100%;
+      position: relative;
+      flex-direction: column;
+      @include flex($a: flex-start, $g: 10px);
+      .title {
+        width: 100%;
         box-sizing: border-box;
-        flex-direction: column;
-        @include flex($j: space-between, $g: 20px);
-
-        &:hover {
-            box-shadow: 0 0 10px 2px #e2e2e2;
-            transform: translateY(-5px);
+        .markdown-body > * {
+          font: {
+            size: 24px;
+            weight: bold;
+          }
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
-
-        .repo_info {
-            width: 100%;
-            position: relative;
-            flex-direction: column;
-            @include flex($a: flex-start, $g: 10px);
-            .title {
-                width: 100%;
-                box-sizing: border-box;
-                .markdown-body > * {
-                    font: {
-                        size: 24px;
-                        weight: bold;
-                    }
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                }
-            }
-            .markdown-body.body {
-                padding: 10px;
-                box-sizing: border-box;
-                overflow: auto;
-                background: #f4f4f4;
-                border-radius: 5px;
-                @include size(100%, 200px);
-                &::-webkit-scrollbar {
-                    width: 5px;
-                    border: transparent 2px solid;
-                }
-                &::-webkit-scrollbar-thumb {
-                    background-color: #2f3542;
-                    border-radius: 10px;
-                    background-clip: padding-box;
-                }
-                &::-webkit-scrollbar-track {
-                    background-color: grey;
-                    border-radius: 10px;
-                }
-            }
-            & > a {
-                position: absolute;
-                top: 0;
-                left: 0;
-                text-indent: -99999px;
-                @include size(100%, 20%);
-            }
+      }
+      .markdown-body.body {
+        padding: 10px;
+        box-sizing: border-box;
+        overflow: auto;
+        background: #f4f4f4;
+        border-radius: 5px;
+        @include size(100%, 200px);
+        &::-webkit-scrollbar {
+          width: 5px;
+          border: transparent 2px solid;
         }
-
-        .user_info {
-            position: relative;
-            width: 100%;
-            padding-top: 20px;
-            border-top: {
-                style: solid;
-                width: 1px;
-                color: #ddd;
-            }
-            @include flex($j: space-between);
-            div {
-                width: 90%;
-                flex: 0 0 90%;
-                @include flex($j: flex-start, $g: 5px);
-                figure {
-                    @include flex($g: 1vw);
-                    width: 30px;
-                    border-radius: 50%;
-                    overflow: hidden;
-                }
-                b {
-                    flex: 0 0 70%;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    line-height: 1;
-                    white-space: nowrap;
-                }
-                a {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    text-indent: -99999px;
-                    @include size(100%, 100%)
-                }
-            }
-            .comments {
-                flex: 0 0 10%;
-                box-sizing: border-box;
-                @include size(30px, auto);
-                @include flex($g: 5px);
-                svg {
-                    margin-top: 5px;
-                    width: 15px;
-                }
-            }
+        &::-webkit-scrollbar-thumb {
+          background-color: #2f3542;
+          border-radius: 10px;
+          background-clip: padding-box;
         }
+        &::-webkit-scrollbar-track {
+          background-color: grey;
+          border-radius: 10px;
+        }
+      }
+      & > a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-indent: -99999px;
+        @include size(100%, 20%);
+      }
     }
+
+    .user_info {
+      position: relative;
+      width: 100%;
+      padding-top: 20px;
+      border-top: {
+        style: solid;
+        width: 1px;
+        color: #ddd;
+      }
+      @include flex($j: space-between);
+      div {
+        width: 90%;
+        flex: 0 0 90%;
+        @include flex($j: flex-start, $g: 5px);
+        figure {
+          @include flex($g: 1vw);
+          width: 30px;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+        b {
+          flex: 0 0 70%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          line-height: 1;
+          white-space: nowrap;
+        }
+        a {
+          position: absolute;
+          top: 0;
+          left: 0;
+          text-indent: -99999px;
+          @include size(100%, 100%);
+        }
+      }
+      .comments {
+        flex: 0 0 10%;
+        box-sizing: border-box;
+        @include size(30px, auto);
+        @include flex($g: 5px);
+        svg {
+          margin-top: 5px;
+          width: 15px;
+        }
+      }
+    }
+  }
 }

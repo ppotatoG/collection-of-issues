@@ -1,28 +1,28 @@
 export interface IssuesType {
-    number: number;
-    html_url: string;
-    title: string;
-    comments: number;
-    created_at: string;
-    body: string;
-    user: UserInfoType;
-    id: number;
+  number: number;
+  html_url: string;
+  title: string;
+  comments: number;
+  created_at: string;
+  body: string;
+  user: UserInfoType;
+  id: number;
 }
 
 interface UserInfoType {
-    login: string;
-    avatar_url: string;
-    followers_url: string;
-    node_id: string;
-    created_at: string;
-    html_url: string;
+  login: string;
+  avatar_url: string;
+  followers_url: string;
+  node_id: string;
+  created_at: string;
+  html_url: string;
 }
 
 export interface RepositoriesType {
-    name: string;
-    html_url: string;
-    description: string;
-    updated_at: string;
-    open_issues: number;
-    url: string;
+  name: string;
+  html_url: string;
+  description: string;
+  updated_at: string;
+  open_issues: number;
+  url: string;
 }

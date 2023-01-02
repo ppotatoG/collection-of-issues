@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const modalOpen = atom<boolean>({
-    key: "modalOpen",
-    default: false,
-})
+  key: 'modalOpen',
+  default: false,
+});
